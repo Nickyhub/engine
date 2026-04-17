@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Engine",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/engine.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\Programme\\msys2\\mingw64\\bin\\gdb.exe",
+      "externalConsole": false,
+    }
+  ]
+}

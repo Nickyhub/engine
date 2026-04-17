@@ -1,0 +1,6 @@
+{
+    "debug.toolBarLocation": "floating",
+    "C_Cpp.referencesCodeLens.enabled": true,
+    "C_Cpp.codeLens.enabled": true,
+    "C_Cpp.errorSquiggles": "disabled"
+}
