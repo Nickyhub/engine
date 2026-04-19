@@ -84,7 +84,6 @@ void vulkan_renderpass_destroy(vulkan_renderpass *renderpass)
 }
 
 b8 vulkan_renderpass_begin(
-	u32 image_index,
 	vulkan_command_buffer *command_buffer,
 	VkExtent2D extent,
 	vulkan_framebuffer *framebuffer,
@@ -110,7 +109,7 @@ b8 vulkan_renderpass_begin(
 	return true;
 }
 
-b8 vulkan_renderpass_end(u32 image_index, vulkan_command_buffer *command_buffer)
+b8 vulkan_renderpass_end(vulkan_command_buffer *command_buffer)
 {
 	vkCmdEndRenderPass(command_buffer->handle);
 	return true;

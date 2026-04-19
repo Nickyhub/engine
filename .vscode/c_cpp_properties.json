@@ -15,7 +15,8 @@
             "windowsSdkVersion": "10.0.26100.0",
             "compilerPath": "cl.exe",
             "cStandard": "c17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerArgs": []
         }
     ],
     "version": 4

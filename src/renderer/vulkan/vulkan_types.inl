@@ -56,7 +56,7 @@ typedef struct vulkan_device
 	VkPhysicalDevice physical_device;
 	VkDevice handle;
 	VkFormat depth_format;
-	
+
 	VkCommandPool command_pool;
 } vulkan_device;
 
@@ -92,8 +92,6 @@ typedef struct vulkan_renderpass
 	const VkAllocationCallbacks *allocator;
 } vulkan_renderpass;
 
-
-
 typedef struct vulkan_pipeline
 {
 	VkDescriptorSetLayout descriptor_set_layout;
@@ -123,8 +121,8 @@ typedef struct vulkan_object_shader
 	// currently: vertex, fragment
 	vulkan_shader_stage stages[OBJECT_SHADER_STAGE_COUNT];
 	vulkan_pipeline pipeline;
-	const vulkan_device* device;
-	const VkAllocationCallbacks* allocator;
+	const vulkan_device *device;
+	const VkAllocationCallbacks *allocator;
 } vulkan_object_shader;
 
 typedef struct vulkan_physical_device_requirements
@@ -179,10 +177,10 @@ typedef struct vulkan_swapchain
 	u16 width;
 	u16 height;
 	u16 image_count;
-	u16 current_frame;
-	u16 current_swapchain_image_index;
+	u32 current_swapchain_image_index;
 
-	u32 frames_in_flight;
+	u32 max_frames_in_flight;
+
 	const VkAllocationCallbacks *allocator;
 	vulkan_device *device;
 	VkExtent2D extent;
@@ -193,10 +191,6 @@ typedef struct vulkan_swapchain
 	vulkan_framebuffer *framebuffers; // darray
 
 	vulkan_image depth_image;
-
-	vulkan_semaphore *image_available_semaphores; // darray
-	vulkan_semaphore *render_finished_semaphores; // darray
-	vulkan_fence *in_flight_fences;				  // darray
 
 	VkSwapchainKHR handle;
 	VkPresentModeKHR present_mode;
@@ -230,14 +224,22 @@ typedef struct uniform_buffer
 
 typedef struct vulkan_context
 {
+	u16 current_frame_in_flight_index;
+
 	vulkan_instance instance;
 	vulkan_surface surface;
 	vulkan_device device;
 	vulkan_swapchain swapchain;
+	b8 recreating_swapchain;
+
+	vulkan_semaphore *image_available_semaphores; // darray
+	vulkan_semaphore *render_finished_semaphores; // darray
+	vulkan_fence *in_flight_fences;				  // darray
 
 	u32 framebuffer_height;
 	u32 framebuffer_width;
 	u32 framebuffer_generation;
+	u32 framebuffer_last_generation;
 
 	vulkan_image image;
 

@@ -161,7 +161,7 @@ LRESULT CALLBACK handleWin32Messages(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 	switch (uMsg)
 	{
-	case WM_EXITSIZEMOVE:
+	case WM_SIZE:
 	{
 		if (LOWORD(lParam) > 0 && HIWORD(lParam) > 0)
 		{

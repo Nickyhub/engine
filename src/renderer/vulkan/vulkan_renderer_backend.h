@@ -10,9 +10,9 @@
 #include "core/event.h"
 
 b8 vulkan_renderer_backend_initialize(
-	renderer_backend* backend,
-	const char* application_name,
-	struct platform_state* plat_state);
+	renderer_backend *backend,
+	const char *application_name,
+	struct platform_state *plat_state);
 
 b8 vulkan_renderer_backend_begin_frame(struct renderer_backend* backend, f32 delta_time);
 

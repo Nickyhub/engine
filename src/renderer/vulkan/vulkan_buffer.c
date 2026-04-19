@@ -61,7 +61,7 @@ b8 vulkan_buffer_create(
 b8 vulkan_buffer_copy_buffer(vulkan_buffer* src_buffer, vulkan_buffer* dst_buffer, VkDeviceSize size, VkQueue queue) {
 	vulkan_command_buffer command_buffer = vulkan_command_buffer_begin_single_use(src_buffer->device, src_buffer->device->command_pool);
 
-	VkBufferCopy copy_region;
+	VkBufferCopy copy_region = {0};
 	copy_region.size = size;
 	vkCmdCopyBuffer(command_buffer.handle, src_buffer->handle, dst_buffer->handle, 1, &copy_region);
 

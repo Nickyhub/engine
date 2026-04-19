@@ -31,6 +31,7 @@ b8 vulkan_image_create(
 	VkFormat format,
 	VkImageTiling tiling,
 	VkImageUsageFlags usage,
+	VkImageAspectFlags aspect_flags,
 	VkMemoryPropertyFlags mem_flags,
 	b8 create_view,
 	const vulkan_device *device,
@@ -43,7 +44,7 @@ b8 vulkan_image_create(
 	create_image(width, height, format, tiling, usage, mem_flags, device, allocator, out_image);
 	if (create_view)
 	{
-		create_image_view(VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_ASPECT_COLOR_BIT, out_image);
+		create_image_view(format, aspect_flags, out_image);
 	}
 	out_image->device = device;
 	out_image->allocator = allocator;

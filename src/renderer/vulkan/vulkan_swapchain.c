@@ -19,23 +19,14 @@ b8 vulkan_swapchain_create(
 	const VkAllocationCallbacks *allocator,
 	vulkan_swapchain *out_swapchain)
 {
-	create(width, height, device, allocator, out_swapchain);
-	// Create sync objects upon construction so they
-	// wont be unnecessarily destroyed and created
-	// over and over again when resizing
-	u16 frames_in_flight = out_swapchain->frames_in_flight;
-	out_swapchain->image_available_semaphores = darray_create_size(VkSemaphore, frames_in_flight);
-	out_swapchain->render_finished_semaphores = darray_create_size(VkSemaphore, frames_in_flight);
-	out_swapchain->in_flight_fences = darray_create_size(VkFence, frames_in_flight);
-	for (u32 i = 0; i < frames_in_flight; i++)
+	if (!create(width, height, device, allocator, out_swapchain))
 	{
-		vulkan_semaphore_create(device, allocator, &out_swapchain->image_available_semaphores[i]);
-		vulkan_semaphore_create(device, allocator, &out_swapchain->render_finished_semaphores[i]);
-		vulkan_fence_create(device, allocator, &out_swapchain->in_flight_fences[i]);
+		return false;
 	}
+	return true;
 }
 
-b8 vulkan_swapchain_recreate(vulkan_swapchain *swapchain, u16 width, u16 height, vulkan_renderpass *renderpass)
+b8 vulkan_swapchain_recreate(vulkan_swapchain *swapchain, u16 width, u16 height)
 {
 	vkDeviceWaitIdle(swapchain->device->handle);
 	destroy(swapchain);
@@ -44,17 +35,12 @@ b8 vulkan_swapchain_recreate(vulkan_swapchain *swapchain, u16 width, u16 height,
 		EN_ERROR("Failed to create swapchain while recreating the swapchain.");
 		return false;
 	}
-
-	vulkan_swapchain_create_framebuffers(swapchain, renderpass);
 	return true;
 }
 
 void vulkan_swapchain_destroy(vulkan_swapchain *swapchain)
 {
 	destroy(swapchain);
-	darray_destroy(swapchain->image_available_semaphores);
-	darray_destroy(swapchain->render_finished_semaphores);
-	darray_destroy(swapchain->in_flight_fences);
 }
 
 b8 create(
@@ -94,18 +80,19 @@ b8 create(
 	// Choose presentation mode
 	// Set default
 	VkPresentModeKHR mode = VK_PRESENT_MODE_FIFO_KHR;
+	out_swapchain->present_mode = mode;
 	// Look for better mode
 	for (u32 i = 0; i < device->support_info.present_mode_count; i++)
 	{
 		if (device->support_info.present_modes[i] == VK_PRESENT_MODE_MAILBOX_KHR)
 		{
-			out_swapchain->present_mode = mode;
+			out_swapchain->present_mode = device->support_info.present_modes[i];
 		}
 	}
 
 	// Choose the swapchain extent
 	// NOTE set up with surface capabilities as this custom way may lead to problems
-	VkExtent2D swap_extent;
+	VkExtent2D swap_extent = {0};
 	swap_extent.height = height;
 	swap_extent.width = width;
 	out_swapchain->height = height;
@@ -119,7 +106,7 @@ b8 create(
 		image_count = device->support_info.capabilities.maxImageCount;
 	}
 
-	out_swapchain->frames_in_flight = image_count - 1;
+	out_swapchain->max_frames_in_flight = image_count - 1;
 
 	// Actually creating the swapchain
 	VkSwapchainCreateInfoKHR create_info = {0};
@@ -151,7 +138,7 @@ b8 create(
 	}
 	create_info.preTransform = device->support_info.capabilities.currentTransform;
 	create_info.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-	create_info.presentMode = mode;
+	create_info.presentMode = out_swapchain->present_mode;
 	create_info.clipped = VK_TRUE;
 	// TODO when resizing provide the old swapchain
 	create_info.oldSwapchain = VK_NULL_HANDLE;
@@ -207,6 +194,7 @@ b8 create(
 		device->depth_format,
 		VK_IMAGE_TILING_OPTIMAL,
 		VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+		VK_IMAGE_ASPECT_DEPTH_BIT,
 		VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
 		true,
 		device,
@@ -216,22 +204,24 @@ b8 create(
 	return true;
 }
 
-b8 vulkan_swapchain_acquire_next_image(vulkan_swapchain *swapchain, vulkan_renderpass *renderpass)
+b8 vulkan_swapchain_acquire_next_image(
+	vulkan_swapchain *swapchain,
+	vulkan_renderpass *renderpass,
+	VkSemaphore semaphore)
 {
 	VkResult result = vkAcquireNextImageKHR(
 		swapchain->device->handle,
 		swapchain->handle,
 		UINT64_MAX,
-		swapchain->image_available_semaphores[swapchain->current_frame].handle,
+		semaphore,
 		VK_NULL_HANDLE,
-		(uint32_t *)&swapchain->current_swapchain_image_index);
+		&swapchain->current_swapchain_image_index);
 
 	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
 	{
 		if (!vulkan_swapchain_recreate(
 				swapchain, swapchain->width,
-				swapchain->height,
-				renderpass))
+				swapchain->height))
 		{
 			EN_ERROR("Failed to recreate Swapchain.");
 			return false;
@@ -241,12 +231,12 @@ b8 vulkan_swapchain_acquire_next_image(vulkan_swapchain *swapchain, vulkan_rende
 	return true;
 }
 
-b8 vulkan_swapchain_present(vulkan_swapchain *swapchain)
+b8 vulkan_swapchain_present(vulkan_swapchain *swapchain, VkSemaphore *semaphores)
 {
 	VkPresentInfoKHR present_info = {0};
 	present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 	present_info.waitSemaphoreCount = 1;
-	present_info.pWaitSemaphores = &swapchain->render_finished_semaphores[swapchain->current_frame].handle;
+	present_info.pWaitSemaphores = semaphores;
 
 	VkSwapchainKHR swapchains[] = {swapchain->handle};
 	present_info.swapchainCount = 1;
@@ -280,6 +270,15 @@ b8 vulkan_swapchain_create_framebuffers(vulkan_swapchain *swapchain, vulkan_rend
 	return true;
 }
 
+void vulkan_swapchain_destroy_framebuffers(vulkan_swapchain *swapchain, vulkan_renderpass *renderpass)
+{
+	for (u32 i = 0; i < swapchain->image_count; i++)
+	{
+		vulkan_framebuffer_destroy(&swapchain->framebuffers[i]);
+	}
+	darray_destroy(swapchain->framebuffers);
+}
+
 void destroy(vulkan_swapchain *swapchain)
 {
 	// Destroy image views before destroying the swapchain itself
@@ -288,16 +287,10 @@ void destroy(vulkan_swapchain *swapchain)
 		vkDestroyImageView(swapchain->device->handle, swapchain->image_views[i], swapchain->allocator);
 	}
 
-	for (u32 i = 0; i < darray_length(swapchain->framebuffers); i++)
-	{
-		vulkan_framebuffer_destroy(&swapchain->framebuffers[i]);
-	}
-
 	vulkan_image_destroy(&swapchain->depth_image);
 
 	darray_destroy(swapchain->images);
 	darray_destroy(swapchain->image_views);
-	darray_destroy(swapchain->framebuffers);
 
 	swapchain->height = 0;
 	swapchain->width = 0;

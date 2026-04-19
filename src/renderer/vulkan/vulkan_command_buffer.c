@@ -61,7 +61,7 @@ b8 vulkan_command_buffer_end(vulkan_command_buffer *command_buffer)
 
 vulkan_command_buffer vulkan_command_buffer_begin_single_use(const vulkan_device *device, VkCommandPool pool)
 {
-	VkCommandBufferAllocateInfo alloc_info;
+	VkCommandBufferAllocateInfo alloc_info = {0};
 	alloc_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	alloc_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 	alloc_info.commandPool = pool;

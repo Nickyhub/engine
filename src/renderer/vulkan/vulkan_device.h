@@ -16,3 +16,5 @@ b8 vulkan_device_create(
 void vulkan_device_destroy(vulkan_device* device);
 
 b8 vulkan_device_find_depth_format(vulkan_device* device);
+
+b8 vulkan_device_query_swapchain_support(vulkan_device* device, VkPhysicalDevice physical_device);

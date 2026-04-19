@@ -123,6 +123,7 @@ b8 application_on_resize(const void *sender, event_context context, event_type t
 		EN_ERROR("Renderer frontend failed to resize.");
 		return false;
 	}
+	EN_INFO("Window resized to: Width: %lu, Height: %lu", context.u_32[0], context.u_32[1]);
 	return true;
 }
 

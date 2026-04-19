@@ -1,169 +1,169 @@
 [
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\containers\\darray.c.obj -c D:\\Dev\\Projekte\\engine\\src\\containers\\darray.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\containers\\darray.c.obj -c D:\\Dev\\Projekte\\engine\\src\\containers\\darray.c",
   "file": "D:/Dev/Projekte/engine/src/containers/darray.c",
   "output": "CMakeFiles/engine.dir/src/containers/darray.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\application.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\application.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\application.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\application.c",
   "file": "D:/Dev/Projekte/engine/src/core/application.c",
   "output": "CMakeFiles/engine.dir/src/core/application.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\clock.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\clock.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\clock.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\clock.c",
   "file": "D:/Dev/Projekte/engine/src/core/clock.c",
   "output": "CMakeFiles/engine.dir/src/core/clock.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\entry.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\entry.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\entry.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\entry.c",
   "file": "D:/Dev/Projekte/engine/src/core/entry.c",
   "output": "CMakeFiles/engine.dir/src/core/entry.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\estring.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\estring.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\estring.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\estring.c",
   "file": "D:/Dev/Projekte/engine/src/core/estring.c",
   "output": "CMakeFiles/engine.dir/src/core/estring.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\event.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\event.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\event.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\event.c",
   "file": "D:/Dev/Projekte/engine/src/core/event.c",
   "output": "CMakeFiles/engine.dir/src/core/event.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\file.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\file.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\file.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\file.c",
   "file": "D:/Dev/Projekte/engine/src/core/file.c",
   "output": "CMakeFiles/engine.dir/src/core/file.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\input.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\input.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\input.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\input.c",
   "file": "D:/Dev/Projekte/engine/src/core/input.c",
   "output": "CMakeFiles/engine.dir/src/core/input.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\logger.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\logger.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\logger.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\logger.c",
   "file": "D:/Dev/Projekte/engine/src/core/logger.c",
   "output": "CMakeFiles/engine.dir/src/core/logger.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\platform.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\platform.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\platform.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\platform.c",
   "file": "D:/Dev/Projekte/engine/src/core/platform.c",
   "output": "CMakeFiles/engine.dir/src/core/platform.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\random.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\random.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\core\\random.c.obj -c D:\\Dev\\Projekte\\engine\\src\\core\\random.c",
   "file": "D:/Dev/Projekte/engine/src/core/random.c",
   "output": "CMakeFiles/engine.dir/src/core/random.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\memory\\ememory.c.obj -c D:\\Dev\\Projekte\\engine\\src\\memory\\ememory.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\memory\\ememory.c.obj -c D:\\Dev\\Projekte\\engine\\src\\memory\\ememory.c",
   "file": "D:/Dev/Projekte/engine/src/memory/ememory.c",
   "output": "CMakeFiles/engine.dir/src/memory/ememory.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderbuffers.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderbuffers.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderbuffers.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderbuffers.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/renderbuffers.c",
   "output": "CMakeFiles/engine.dir/src/renderer/renderbuffers.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderer_backend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderer_backend.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderer_backend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderer_backend.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/renderer_backend.c",
   "output": "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderer_frontend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderer_frontend.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderer_frontend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderer_frontend.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/renderer_frontend.c",
   "output": "CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_buffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_buffer.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_buffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_buffer.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_buffer.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_command_buffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_command_buffer.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_command_buffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_command_buffer.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_command_buffer.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_device.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_device.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_device.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_device.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_device.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_framebuffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_framebuffer.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_framebuffer.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_framebuffer.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_framebuffer.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_image.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_image.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_image.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_image.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_image.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_instance.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_instance.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_instance.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_instance.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_instance.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_pipeline.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_pipeline.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_pipeline.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_pipeline.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_pipeline.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_renderer_backend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_renderer_backend.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_renderer_backend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_renderer_backend.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_renderer_backend.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_renderpass.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_renderpass.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_renderpass.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_renderpass.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_renderpass.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_shader_module.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_shader_module.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_shader_module.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_shader_module.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_shader_module.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_shader_module.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_swapchain.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_swapchain.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_swapchain.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_swapchain.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_swapchain.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_sync_objects.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_sync_objects.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_sync_objects.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_sync_objects.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_sync_objects.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe  @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_utils.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_utils.c",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_utils.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_utils.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_utils.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj"
 }

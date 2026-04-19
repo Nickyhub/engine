@@ -11,6 +11,7 @@ b8 vulkan_image_create(
 	VkFormat format,
 	VkImageTiling tiling,
 	VkImageUsageFlags usage,
+	VkImageAspectFlags aspect_flags,
 	VkMemoryPropertyFlags mem_flags,
 	b8 create_view,
 	const vulkan_device *device,

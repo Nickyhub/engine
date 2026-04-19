@@ -435,7 +435,7 @@ b8 physical_device_meets_requirements(
 
 		darray_destroy(available_device_extensions);
 
-		if (!query_swapchain_support(device, physical_device))
+		if (!vulkan_device_query_swapchain_support(device, physical_device))
 		{
 			EN_ERROR("Device does not meet the swapchain support requirements. Skipping.");
 			return false;
@@ -456,7 +456,7 @@ b8 physical_device_meets_requirements(
 	return false;
 }
 
-b8 query_swapchain_support(vulkan_device *device, VkPhysicalDevice physical_device)
+b8 vulkan_device_query_swapchain_support(vulkan_device *device, VkPhysicalDevice physical_device)
 {
 	// Create information structs to be filled
 	VkSurfaceCapabilitiesKHR capabilities = {0};
