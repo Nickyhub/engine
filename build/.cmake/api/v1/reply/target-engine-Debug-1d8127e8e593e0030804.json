@@ -118,8 +118,7 @@
 				23,
 				24,
 				25,
-				26,
-				27
+				26
 			]
 		}
 	],
@@ -190,14 +189,14 @@
 				23,
 				24,
 				25,
-				26,
-				27
+				26
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
+				27,
 				28,
 				29,
 				30,
@@ -225,9 +224,7 @@
 				52,
 				53,
 				54,
-				55,
-				56,
-				57
+				55
 			]
 		}
 	],
@@ -308,12 +305,6 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/renderer/renderbuffers.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"path" : "src/renderer/renderer_backend.c",
 			"sourceGroupIndex" : 0
 		},
@@ -362,6 +353,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/renderer/vulkan/vulkan_object_shader.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/renderer/vulkan/vulkan_pipeline.c",
 			"sourceGroupIndex" : 0
 		},
@@ -375,12 +372,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/renderer/vulkan/vulkan_renderpass.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/renderer/vulkan/vulkan_shader_module.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -473,11 +464,6 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/renderer/renderbuffers.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
 			"path" : "src/renderer/renderer_backend.h",
 			"sourceGroupIndex" : 1
 		},
@@ -518,6 +504,11 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "src/renderer/vulkan/vulkan_object_shader.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/renderer/vulkan/vulkan_pipeline.h",
 			"sourceGroupIndex" : 1
 		},
@@ -529,11 +520,6 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/renderer/vulkan/vulkan_renderpass.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/renderer/vulkan/vulkan_shader_module.h",
 			"sourceGroupIndex" : 1
 		},
 		{

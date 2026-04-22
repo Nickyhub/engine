@@ -416,30 +416,6 @@ src/memory/ememory.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/memory/ememory.c.s
 .PHONY : src/memory/ememory.c.s
 
-src/renderer/renderbuffers.obj: src/renderer/renderbuffers.c.obj
-.PHONY : src/renderer/renderbuffers.obj
-
-# target to build an object file
-src/renderer/renderbuffers.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/renderbuffers.c.obj
-.PHONY : src/renderer/renderbuffers.c.obj
-
-src/renderer/renderbuffers.i: src/renderer/renderbuffers.c.i
-.PHONY : src/renderer/renderbuffers.i
-
-# target to preprocess a source file
-src/renderer/renderbuffers.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/renderbuffers.c.i
-.PHONY : src/renderer/renderbuffers.c.i
-
-src/renderer/renderbuffers.s: src/renderer/renderbuffers.c.s
-.PHONY : src/renderer/renderbuffers.s
-
-# target to generate assembly for a file
-src/renderer/renderbuffers.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/renderbuffers.c.s
-.PHONY : src/renderer/renderbuffers.c.s
-
 src/renderer/renderer_backend.obj: src/renderer/renderer_backend.c.obj
 .PHONY : src/renderer/renderer_backend.obj
 
@@ -632,6 +608,30 @@ src/renderer/vulkan/vulkan_instance.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.s
 .PHONY : src/renderer/vulkan/vulkan_instance.c.s
 
+src/renderer/vulkan/vulkan_object_shader.obj: src/renderer/vulkan/vulkan_object_shader.c.obj
+.PHONY : src/renderer/vulkan/vulkan_object_shader.obj
+
+# target to build an object file
+src/renderer/vulkan/vulkan_object_shader.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj
+.PHONY : src/renderer/vulkan/vulkan_object_shader.c.obj
+
+src/renderer/vulkan/vulkan_object_shader.i: src/renderer/vulkan/vulkan_object_shader.c.i
+.PHONY : src/renderer/vulkan/vulkan_object_shader.i
+
+# target to preprocess a source file
+src/renderer/vulkan/vulkan_object_shader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.i
+.PHONY : src/renderer/vulkan/vulkan_object_shader.c.i
+
+src/renderer/vulkan/vulkan_object_shader.s: src/renderer/vulkan/vulkan_object_shader.c.s
+.PHONY : src/renderer/vulkan/vulkan_object_shader.s
+
+# target to generate assembly for a file
+src/renderer/vulkan/vulkan_object_shader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.s
+.PHONY : src/renderer/vulkan/vulkan_object_shader.c.s
+
 src/renderer/vulkan/vulkan_pipeline.obj: src/renderer/vulkan/vulkan_pipeline.c.obj
 .PHONY : src/renderer/vulkan/vulkan_pipeline.obj
 
@@ -703,30 +703,6 @@ src/renderer/vulkan/vulkan_renderpass.s: src/renderer/vulkan/vulkan_renderpass.c
 src/renderer/vulkan/vulkan_renderpass.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.s
 .PHONY : src/renderer/vulkan/vulkan_renderpass.c.s
-
-src/renderer/vulkan/vulkan_shader_module.obj: src/renderer/vulkan/vulkan_shader_module.c.obj
-.PHONY : src/renderer/vulkan/vulkan_shader_module.obj
-
-# target to build an object file
-src/renderer/vulkan/vulkan_shader_module.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_shader_module.c.obj
-.PHONY : src/renderer/vulkan/vulkan_shader_module.c.obj
-
-src/renderer/vulkan/vulkan_shader_module.i: src/renderer/vulkan/vulkan_shader_module.c.i
-.PHONY : src/renderer/vulkan/vulkan_shader_module.i
-
-# target to preprocess a source file
-src/renderer/vulkan/vulkan_shader_module.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_shader_module.c.i
-.PHONY : src/renderer/vulkan/vulkan_shader_module.c.i
-
-src/renderer/vulkan/vulkan_shader_module.s: src/renderer/vulkan/vulkan_shader_module.c.s
-.PHONY : src/renderer/vulkan/vulkan_shader_module.s
-
-# target to generate assembly for a file
-src/renderer/vulkan/vulkan_shader_module.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_shader_module.c.s
-.PHONY : src/renderer/vulkan/vulkan_shader_module.c.s
 
 src/renderer/vulkan/vulkan_swapchain.obj: src/renderer/vulkan/vulkan_swapchain.c.obj
 .PHONY : src/renderer/vulkan/vulkan_swapchain.obj
@@ -845,9 +821,6 @@ help:
 	@echo ... src/memory/ememory.obj
 	@echo ... src/memory/ememory.i
 	@echo ... src/memory/ememory.s
-	@echo ... src/renderer/renderbuffers.obj
-	@echo ... src/renderer/renderbuffers.i
-	@echo ... src/renderer/renderbuffers.s
 	@echo ... src/renderer/renderer_backend.obj
 	@echo ... src/renderer/renderer_backend.i
 	@echo ... src/renderer/renderer_backend.s
@@ -872,6 +845,9 @@ help:
 	@echo ... src/renderer/vulkan/vulkan_instance.obj
 	@echo ... src/renderer/vulkan/vulkan_instance.i
 	@echo ... src/renderer/vulkan/vulkan_instance.s
+	@echo ... src/renderer/vulkan/vulkan_object_shader.obj
+	@echo ... src/renderer/vulkan/vulkan_object_shader.i
+	@echo ... src/renderer/vulkan/vulkan_object_shader.s
 	@echo ... src/renderer/vulkan/vulkan_pipeline.obj
 	@echo ... src/renderer/vulkan/vulkan_pipeline.i
 	@echo ... src/renderer/vulkan/vulkan_pipeline.s
@@ -881,9 +857,6 @@ help:
 	@echo ... src/renderer/vulkan/vulkan_renderpass.obj
 	@echo ... src/renderer/vulkan/vulkan_renderpass.i
 	@echo ... src/renderer/vulkan/vulkan_renderpass.s
-	@echo ... src/renderer/vulkan/vulkan_shader_module.obj
-	@echo ... src/renderer/vulkan/vulkan_shader_module.i
-	@echo ... src/renderer/vulkan/vulkan_shader_module.s
 	@echo ... src/renderer/vulkan/vulkan_swapchain.obj
 	@echo ... src/renderer/vulkan/vulkan_swapchain.i
 	@echo ... src/renderer/vulkan/vulkan_swapchain.s

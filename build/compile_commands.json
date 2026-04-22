@@ -73,12 +73,6 @@
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderbuffers.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderbuffers.c",
-  "file": "D:/Dev/Projekte/engine/src/renderer/renderbuffers.c",
-  "output": "CMakeFiles/engine.dir/src/renderer/renderbuffers.c.obj"
-},
-{
-  "directory": "D:/Dev/Projekte/engine/build",
   "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\renderer_backend.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\renderer_backend.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/renderer_backend.c",
   "output": "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj"
@@ -127,6 +121,12 @@
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_object_shader.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_object_shader.c",
+  "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_object_shader.c",
+  "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj"
+},
+{
+  "directory": "D:/Dev/Projekte/engine/build",
   "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_pipeline.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_pipeline.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_pipeline.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj"
@@ -142,12 +142,6 @@
   "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_renderpass.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_renderpass.c",
   "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_renderpass.c",
   "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj"
-},
-{
-  "directory": "D:/Dev/Projekte/engine/build",
-  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\renderer\\vulkan\\vulkan_shader_module.c.obj -c D:\\Dev\\Projekte\\engine\\src\\renderer\\vulkan\\vulkan_shader_module.c",
-  "file": "D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_shader_module.c",
-  "output": "CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_shader_module.c.obj"
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",

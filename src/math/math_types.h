@@ -2,21 +2,21 @@
 
 
 typedef struct vec2 {
-    float v1;
-    float v2;
+    float x;
+    float y;
 } vec2;
 
 typedef struct vec3 {
-    float v1;
-    float v2;
-    float v3;
+    float x;
+    float y;
+    float z;
 } vec3;
 
 typedef struct vec4 {
-    float v1;
-    float v2;
-    float v3;
-    float v4;
+    float x;
+    float y;
+    float z;
+    float w;
 } vec4;
 
 typedef struct mat4 {
@@ -28,5 +28,4 @@ typedef struct mat4 {
 
 typedef struct vertex_3d {
     vec3 position;
-    vec3 color;
 } vertex_3d;

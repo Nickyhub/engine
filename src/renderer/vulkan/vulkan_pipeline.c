@@ -7,38 +7,26 @@
 #include "core/Logger.h"
 #include "memory/ememory.h"
 
+
 b8 vulkan_pipeline_create(
-	u32 width,
-	u32 height,
+	const vulkan_context* context,
 	const vulkan_renderpass *renderpass,
 	u32 attribute_count,
 	VkVertexInputAttributeDescription *attributes, // darray
 	u32 stage_count,
-	VkPipelineShaderStageCreateInfo *shader_stages,	   // darray
-	const vulkan_device *device,
-	const VkAllocationCallbacks *allocator,
+	VkPipelineShaderStageCreateInfo *shader_stages, // darray
+	u32 descriptor_set_layout_count,
+	VkDescriptorSetLayout* descriptor_set_layouts,	   // darray
+	VkViewport viewport,
+	VkRect2D scissor,
 	b8 is_wireframe,
 	vulkan_pipeline *out_pipeline)
 {
-	out_pipeline->device = device;
+	out_pipeline->device = &context->device;
 	// out_pipeline->frames_in_flight = frames_in_flight;
 
 	// First create descriptor set layout
 	vulkan_pipeline_create_descriptor_set_layout(out_pipeline);
-
-	// Viewport
-	VkViewport viewport = {0};
-	viewport.x = 0.0f;
-	viewport.y = 0.0f;
-	viewport.width = (float)width;
-	viewport.height = (float)height;
-	viewport.minDepth = 0.0f;
-	viewport.maxDepth = 1.0f;
-
-	// Scissor
-	VkRect2D scissor = {0};
-	scissor.offset = (VkOffset2D){0, 0};
-	scissor.extent = (VkExtent2D){width, height};
 
 	VkPipelineViewportStateCreateInfo viewport_state_info = {0};
 	viewport_state_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
@@ -52,7 +40,6 @@ b8 vulkan_pipeline_create(
 	rasterizer.depthClampEnable = VK_FALSE;
 	// Maybe support wireframe rendering?
 	rasterizer.polygonMode = is_wireframe ? VK_POLYGON_MODE_LINE : VK_POLYGON_MODE_FILL;
-	rasterizer.cullMode = /*VK_CULL_MODE_BACK_BIT*/ VK_CULL_MODE_NONE;
 	rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
 	rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
 	rasterizer.depthBiasEnable = VK_FALSE;
@@ -136,13 +123,13 @@ b8 vulkan_pipeline_create(
 	// Pipeline layout
 	VkPipelineLayoutCreateInfo pipeline_layout_info = {0};
 	pipeline_layout_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-	pipeline_layout_info.setLayoutCount = 1;
-	pipeline_layout_info.pSetLayouts = &out_pipeline->descriptor_set_layout;
+	pipeline_layout_info.setLayoutCount = descriptor_set_layout_count;
+	pipeline_layout_info.pSetLayouts = descriptor_set_layouts;
 	pipeline_layout_info.pushConstantRangeCount = 0; // Optional
 	pipeline_layout_info.pPushConstantRanges = 0;	 // Optional
-	VK_CHECK(vkCreatePipelineLayout(device->handle,
+	VK_CHECK(vkCreatePipelineLayout(context->device.handle,
 									&pipeline_layout_info,
-									allocator,
+									context->allocator,
 									&out_pipeline->layout));
 
 	// Finally creating the pipeline
@@ -167,11 +154,11 @@ b8 vulkan_pipeline_create(
 	pipeline_info.basePipelineHandle = VK_NULL_HANDLE;
 	pipeline_info.basePipelineIndex = -1;
 
-	VK_CHECK(vkCreateGraphicsPipelines(device->handle,
+	VK_CHECK(vkCreateGraphicsPipelines(context->device.handle,
 									   VK_NULL_HANDLE,
 									   1,
 									   &pipeline_info,
-									   allocator,
+									   context->allocator,
 									   &out_pipeline->handle));
 	EN_DEBUG("Graphics pipeline created.");
 	return true;

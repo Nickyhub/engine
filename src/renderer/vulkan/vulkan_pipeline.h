@@ -6,15 +6,16 @@
 #include "vulkan_buffer.h"
 
 b8 vulkan_pipeline_create(
-	u32 width,
-	u32 height,
+	const vulkan_context* context,
 	const vulkan_renderpass *renderpass,
 	u32 attribute_count,
 	VkVertexInputAttributeDescription *attributes, // darray
 	u32 stage_count,
-	VkPipelineShaderStageCreateInfo *shader_stages,	   // darray
-	const vulkan_device *device,
-	const VkAllocationCallbacks *allocator,
+	VkPipelineShaderStageCreateInfo *shader_stages, // darray
+	u32 descriptor_set_layout_count,
+	VkDescriptorSetLayout* descriptor_set_layouts,	   // darray
+	VkViewport viewport,
+	VkRect2D scissor,
 	b8 is_wireframe,
 	vulkan_pipeline *out_pipeline);
 

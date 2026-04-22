@@ -5,9 +5,7 @@
 #include "vulkan_command_buffer.h"
 #include "vulkan_buffer.h"
 #include "vulkan_utils.h"
-#include "vulkan_shader_module.h"
-
-#include "renderer/renderbuffers.h"
+#include "vulkan_object_shader.h"
 
 #include "math/math_types.h"
 
@@ -19,7 +17,24 @@
 static vulkan_context *context;
 
 b8 recreate_swapchain(renderer_backend *backend);
-b8 regenerate_command_buffers(vulkan_context* context);
+b8 regenerate_command_buffers(vulkan_context *context);
+
+b8 create_buffers(vulkan_context *context);
+void upload_data_range(vulkan_context *context, VkFence fence, VkQueue queue, vulkan_buffer *buffer, u64 offset, u64 size, void *data)
+{
+	VkMemoryPropertyFlags mem_props = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+	// Staging buffer
+	vulkan_buffer staging = {0};
+	// Create staging buffer as source to be transferred to passed in buffer
+	vulkan_buffer_create(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, mem_props, true, &context->device, context->allocator, &staging);
+	// Load passed in data into the staging buffer
+	vulkan_buffer_load_data(&staging, 0, size, 0, data, &context->device, context->allocator);
+	// Copy buffer to the actual passed buffer that (hopefully) is located on the GPU
+	vulkan_buffer_copy_buffer(&staging, buffer, size, queue);
+	// Cleanup staging buffer
+	vulkan_buffer_destroy(&staging);
+}
 
 static u16 cached_framebuffer_width = 0;
 static u16 cached_framebuffer_height = 0;
@@ -85,56 +100,6 @@ b8 vulkan_renderer_backend_initialize(
 		return false;
 	}
 
-	// // Create vulkan image THIS IS TEXTURE STUFF WATCH KOHI SPAST
-	// if (!vulkan_image_create(plat_state->width,
-	// 						 plat_state->height,
-	// 						 VK_FORMAT_R8G8B8A8_SRGB,
-	// 						 VK_IMAGE_TILING_OPTIMAL,
-	// 						 VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
-	// 						 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-	// 						 &context->device,
-	// 						 context->allocator,
-	// 						 &context->image))
-	// {
-	// 	EN_ERROR("Failed to create vulkan image.");
-	// 	return false;
-	// }
-
-	// Vertex buffer
-	vertex_3d *vertices = darray_create_size(vertex_3d, 4);
-	vertex_3d verts[4] = {
-		{{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}},
-		{{0.5f, -0.5f, 0.0f}, {1.0f, 1.0f, 0.0f}},
-		{{0.5f, 0.5f, 0.0f}, {1.0f, 0.0f, 1.0f}},
-		{{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 0.0f}},
-	};
-
-	for (u32 i = 0; i < 4; ++i)
-	{
-		darray_push_back(vertices, verts[i]);
-	}
-
-	// if (!vertex_buffer_create(vertices, &context->device, context->allocator, &context->vertex_buffer))
-	// {
-	// 	EN_ERROR("vulkan_renderer_backend_initialize - Failed to create vertex buffer.");
-	// 	return false;
-	// }
-
-	darray_destroy(vertices);
-	u32 *indices = darray_create_size(u32, 6);
-	u32 ind[6] = {0, 1, 2, 2, 3, 1};
-	for (u32 i = 0; i < 6; i++)
-	{
-		darray_push_back(indices, ind[i]);
-	}
-
-	// if (!index_buffer_create(indices, &context->device, context->allocator, &context->index_buffer))
-	// {
-	// 	EN_ERROR("vulkan_renderer_backend_initialize - Failed to create index buffer.");
-	// 	return false;
-	// }
-	darray_destroy(indices);
-
 	if (!vulkan_renderpass_create(&context->device, context->swapchain.surface_format.format, context->allocator, &context->renderpass))
 	{
 		EN_ERROR(" - vulkan_renderer_backend_initialize - Failed to create vulkan renderpass in backend.");
@@ -152,15 +117,11 @@ b8 vulkan_renderer_backend_initialize(
 		return false;
 	}
 
-	// if (!vulkan_object_shader_create(context, &context->object_shader))
-	// {
-	// 	EN_ERROR("Failed to create vulkan object shader. Aborting renderer initialization.");
-	// 	return false;
-	// }
-
-	// Create descriptor pool and sets
-	// vulkan_pipeline_create_descriptor_pool(&context->object_shader.pipeline);
-	// vulkan_pipeline_create_descriptor_sets(&context->image.view, &context->image.sampler, &context->object_shader.pipeline);
+	if (!vulkan_object_shader_create(context, &context->object_shader))
+	{
+		EN_ERROR("Failed to create vulkan object shader. Aborting renderer initialization.");
+		return false;
+	}
 
 	// Create per swapchain image resources
 	context->command_buffers = darray_create_size(vulkan_command_buffer, context->swapchain.image_count);
@@ -188,6 +149,33 @@ b8 vulkan_renderer_backend_initialize(
 		vulkan_semaphore_create(&context->device, context->allocator, &context->image_available_semaphores[i]);
 		vulkan_fence_create(&context->device, context->allocator, &context->in_flight_fences[i]);
 	}
+
+	create_buffers(context);
+
+	// TODO temporary test code
+	const u32 vert_count = 3;
+	vertex_3d verts[vert_count];
+	ezero_out(verts, sizeof(vertex_3d) * vert_count);
+
+	verts[2].position.x = 0.0; // oben
+	verts[2].position.y = -0.5;
+
+	verts[1].position.x = 0.5; // oben rechts
+	verts[1].position.y = 0.5;
+
+	verts[0].position.x = 0.0; // unten mitte
+	verts[0].position.y = 0.5;
+
+	const u32 index_count = 3;
+	u32 indices[index_count];
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+
+	upload_data_range(context, 0, context->device.graphics_queue, &context->object_vertex_buffer, 0, sizeof(vertex_3d) * vert_count, verts);
+	upload_data_range(context, 0, context->device.graphics_queue, &context->object_index_buffer, 0, sizeof(u32) * index_count, indices);
+	// END temporary test code
+
 	return true;
 }
 
@@ -257,8 +245,6 @@ b8 vulkan_renderer_backend_begin_frame(struct renderer_backend *backend, f32 del
 		return false;
 	}
 
-	// vulkan_pipeline_bind(cb, &context->object_shader.pipeline);
-
 	vulkan_renderpass_begin(
 		cb,
 		context->swapchain.extent,
@@ -280,33 +266,16 @@ b8 vulkan_renderer_backend_begin_frame(struct renderer_backend *backend, f32 del
 	scissor.extent = context->swapchain.extent;
 	vkCmdSetScissor(cb->handle, 0, 1, &scissor);
 
-	// Bind Buffers
-	VkBuffer vertexBuffers[] = {context->vertex_buffer.internal_buffer.handle};
-	VkDeviceSize offsets[] = {0};
-	// vkCmdBindVertexBuffers(cb->handle,
-	// 					   0,
-	// 					   1,
-	// 					   vertexBuffers,
-	// 					   offsets);
-	// vkCmdBindIndexBuffer(cb->handle,
-	// 					 context->index_buffer.internal_buffer.handle,
-	// 					 0,
-	// 					 VK_INDEX_TYPE_UINT32);
+	// TODO temporary test code
+	vulkan_object_shader_use(&context->object_shader, cb);
 
-	// vkCmdBindDescriptorSets(context->command_buffers[context->swapchain.current_frame].handle,
-	// 						VK_PIPELINE_BIND_POINT_GRAPHICS,
-	// 						context->object_shader.pipeline.layout,
-	// 						0,
-	// 						1,
-	// 						&context->object_shader.pipeline.descriptor_sets[context->swapchain.current_frame],
-	// 						0,
-	// 						0);
-	// vkCmdDrawIndexed(cb->handle,
-	// 				 (uint32_t)(context->index_buffer.internal_buffer.size),
-	// 				 1,
-	// 				 0,
-	// 				 0,
-	// 				 0);
+	VkDeviceSize offsets[1] = {0};
+	vkCmdBindVertexBuffers(cb->handle, 0, 1, &context->object_vertex_buffer.handle, (VkDeviceSize*)offsets);
+
+	vkCmdBindIndexBuffer(cb->handle, context->object_index_buffer.handle, 0, VK_INDEX_TYPE_UINT32);
+
+	vkCmdDrawIndexed(cb->handle, 3, 1, 0, 0, 0);
+
 	return true;
 }
 
@@ -365,6 +334,10 @@ void vulkan_renderer_backend_shutdown(struct renderer_backend *backend)
 	// Destroy vulkan objects in the reverse order they were created
 	vkDeviceWaitIdle(context->device.handle);
 
+	// Destroy vertex and index buffer
+	vulkan_buffer_destroy(&context->object_index_buffer);
+	vulkan_buffer_destroy(&context->object_vertex_buffer);
+
 	// Destroy command buffers
 	for (unsigned int i = 0; i < context->swapchain.max_frames_in_flight; i++)
 	{
@@ -382,10 +355,9 @@ void vulkan_renderer_backend_shutdown(struct renderer_backend *backend)
 		func(context->instance.handle, context->instance.debug_messenger, context->allocator);
 	}
 #endif
-	// vulkan_object_shader_destroy(&context->object_shader);
-	// vulkan_pipeline_destroy(&context->object_shader.pipeline);
-	//vertex_buffer_destroy(&context->vertex_buffer);
-	//vulkan_image_destroy(&context->image);
+	vulkan_object_shader_destroy(&context->object_shader);
+	// vertex_buffer_destroy(&context->vertex_buffer);
+	// vulkan_image_destroy(&context->image);
 	vulkan_swapchain_destroy_framebuffers(&context->swapchain, &context->renderpass);
 	vulkan_swapchain_destroy(&context->swapchain);
 	vulkan_renderpass_destroy(&context->renderpass);
@@ -426,31 +398,32 @@ b8 vulkan_renderer_backend_on_resize(struct renderer_backend *backend, u16 width
 
 b8 recreate_swapchain(renderer_backend *backend)
 {
-	if(context->recreating_swapchain) {
+	if (context->recreating_swapchain)
+	{
 		EN_DEBUG("recreate_swapchain - already recreating. Booting.");
 		return false;
 	}
 
-  	// if (context->framebuffer_width == 0 || context->framebuffer_height == 0) {
-    //     EN_DEBUG("recreate_swapchain called when window is < 1 in a dimension. Booting.");
-    //     return FALSE;
-    // }
+	// if (context->framebuffer_width == 0 || context->framebuffer_height == 0) {
+	//     EN_DEBUG("recreate_swapchain called when window is < 1 in a dimension. Booting.");
+	//     return FALSE;
+	// }
 
 	context->recreating_swapchain = true;
 
 	vkDeviceWaitIdle(context->device.handle);
 
-    vulkan_swapchain_destroy_framebuffers(&context->swapchain, &context->renderpass);
+	vulkan_swapchain_destroy_framebuffers(&context->swapchain, &context->renderpass);
 
 	vulkan_device_query_swapchain_support(&context->device, context->device.physical_device);
 
-    // 2. Dann Swapchain recreaten (zerstört ImageViews, erstellt neue)
-    vulkan_swapchain_recreate(
-        &context->swapchain,
-        cached_framebuffer_width,
-        cached_framebuffer_height);
+	// 2. Dann Swapchain recreaten (zerstört ImageViews, erstellt neue)
+	vulkan_swapchain_recreate(
+		&context->swapchain,
+		cached_framebuffer_width,
+		cached_framebuffer_height);
 
-    vulkan_swapchain_create_framebuffers(&context->swapchain, &context->renderpass);
+	vulkan_swapchain_create_framebuffers(&context->swapchain, &context->renderpass);
 	context->framebuffer_last_generation = context->framebuffer_generation;
 
 	regenerate_command_buffers(context);
@@ -464,8 +437,9 @@ b8 recreate_swapchain(renderer_backend *backend)
 	return true;
 }
 
-b8 regenerate_command_buffers(vulkan_context* context) {
-		// Destroy command buffers
+b8 regenerate_command_buffers(vulkan_context *context)
+{
+	// Destroy command buffers
 	for (unsigned int i = 0; i < context->swapchain.image_count; i++)
 	{
 		vulkan_command_buffer_destroy(&context->command_buffers[i]);
@@ -481,5 +455,42 @@ b8 regenerate_command_buffers(vulkan_context* context) {
 			return false;
 		}
 	}
+	return true;
+}
+
+b8 create_buffers(vulkan_context *context)
+{
+	VkMemoryPropertyFlagBits mem_prop_flags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+
+	const u64 vertex_buffer_size = sizeof(vertex_3d) * 1024 * 1024;
+	if (!vulkan_buffer_create(
+			vertex_buffer_size,
+			VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+			mem_prop_flags,
+			true,
+			&context->device,
+			context->allocator,
+			&context->object_vertex_buffer))
+	{
+		EN_ERROR("create_buffers - Failed to create vertex buffer.");
+		return false;
+	}
+
+	const u64 index_buffer_size = sizeof(u32) * 1024;
+	if (!vulkan_buffer_create(
+			index_buffer_size,
+			VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+			mem_prop_flags,
+			true,
+			&context->device,
+			context->allocator,
+			&context->object_index_buffer))
+	{
+		EN_ERROR("create_buffers - Failed to create index buffer.");
+		return false;
+	}
+
+	context->geometry_index_offset = 0;
+	context->geometry_vertex_offset = 0;
 	return true;
 }

@@ -1,6 +1,7 @@
-CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderer_backend.c \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderer_backend.h \
+CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj: \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_object_shader.c \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_object_shader.h \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_types.inl \
  C:/Program\ Files/msys2/mingw64/include/windows.h \
  C:/Program\ Files/msys2/mingw64/include/_mingw.h \
  C:/Program\ Files/msys2/mingw64/include/_mingw_mac.h \
@@ -290,7 +291,6 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: \
  C:/Program\ Files/msys2/mingw64/include/winsvc.h \
  C:/Program\ Files/msys2/mingw64/include/mcx.h \
  C:/Program\ Files/msys2/mingw64/include/imm.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_pipeline.h \
  D:/Dev/Projekte/_Libraries/Vulkan/include/vulkan/vulkan.h \
  D:/Dev/Projekte/_Libraries/Vulkan/include/vulkan/vk_platform.h \
  C:/Program\ Files/msys2/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
@@ -312,26 +312,24 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: \
  D:/Dev/Projekte/_Libraries/Vulkan/include/vk_video/vulkan_video_codec_vp9std.h \
  D:/Dev/Projekte/_Libraries/Vulkan/include/vk_video/vulkan_video_codec_vp9std_decode.h \
  D:/Dev/Projekte/_Libraries/Vulkan/include/vk_video/vulkan_video_codec_vp9std.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderpass.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_command_buffer.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_types.inl \
  D:/Dev/Projekte/engine/src/containers/darray.h \
  D:/Dev/Projekte/engine/src/defines.h \
  D:/Dev/Projekte/engine/src/renderer/renderer_types.inl \
  D:/Dev/Projekte/engine/src/math/math_types.h \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_pipeline.h \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderpass.h \
+ D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_command_buffer.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_device.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_instance.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_framebuffer.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_image.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_buffer.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_swapchain.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_sync_objects.h \
- D:/Dev/Projekte/engine/src/core/event.h \
  D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_utils.h \
  D:/Dev/Projekte/engine/src/core/logger.h \
- D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_object_shader.h \
- D:/Dev/Projekte/engine/src/core/platform.h \
- D:/Dev/Projekte/engine/src/core/application.h \
- D:/Dev/Projekte/engine/src/core/clock.h \
- D:/Dev/Projekte/engine/src/renderer/renderer_frontend.h \
- D:/Dev/Projekte/engine/src/memory/ememory.h
+ D:/Dev/Projekte/engine/src/memory/ememory.h \
+ D:/Dev/Projekte/engine/src/core/file.h \
+ C:/Program\ Files/msys2/mingw64/include/stdio.h \
+ C:/Program\ Files/msys2/mingw64/include/corecrt_stdio_config.h \
+ C:/Program\ Files/msys2/mingw64/include/_mingw_off_t.h \
+ C:/Program\ Files/msys2/mingw64/include/swprintf.inl \
+ C:/Program\ Files/msys2/mingw64/include/sec_api/stdio_s.h

@@ -1,6 +1,6 @@
 // #include <stdio.h>
 
-#include "vulkan_shader_module.h"
+#include "vulkan_object_shader.h"
 #include "vulkan_pipeline.h"
 #include "vulkan_utils.h"
 
@@ -17,7 +17,7 @@ b8 create_shader_module(const char *name,
                         vulkan_shader_stage *out_shader_stage);
 
 b8 vulkan_object_shader_create(
-    const vulkan_context *context,
+    vulkan_context *context,
     vulkan_object_shader *out_object_shader)
 {
     out_object_shader->device = &context->device;
@@ -42,55 +42,75 @@ b8 vulkan_object_shader_create(
         }
     }
 
-
     // TODO Move descriptors here
 
     // dynamically create VertexInputAttributeDescription
-    const u32 attribute_count = 2;
+    const u32 attribute_count = 1;
     VkVertexInputAttributeDescription attribute_descriptions[attribute_count];
 
     VkFormat formats[attribute_count];
-    formats[0] = VK_FORMAT_R32G32B32_SFLOAT;
-    formats[1] = VK_FORMAT_R32G32B32_SFLOAT;
+    formats[0] = VK_FORMAT_R32G32B32_SFLOAT; // vec3 position
+    //formats[1] = VK_FORMAT_R32G32B32_SFLOAT; // vec3 color
 
     u64 sizes[attribute_count];
     sizes[0] = sizeof(vec3);
-    sizes[1] = sizeof(vec3);
-    
+    //sizes[1] = sizeof(vec3);
+
     u32 offset = 0;
     for (u32 i = 0; i < attribute_count; i++)
     {
         attribute_descriptions[i].binding = 0;
-        attribute_descriptions[i].format = formats[i]; // vec3 position
+        attribute_descriptions[i].format = formats[i];
         attribute_descriptions[i].location = i;
         attribute_descriptions[i].offset = offset;
         offset += sizes[i];
     }
 
     VkPipelineShaderStageCreateInfo stage_create_infos[OBJECT_SHADER_STAGE_COUNT];
-    for(u32 i = 0; i < OBJECT_SHADER_STAGE_COUNT; i++) {
+    for (u32 i = 0; i < OBJECT_SHADER_STAGE_COUNT; i++)
+    {
         stage_create_infos[i].sType = out_object_shader->stages[i].shader_stage_create_info.sType;
         stage_create_infos[i] = out_object_shader->stages[i].shader_stage_create_info;
     }
 
+    VkViewport viewport = {0};
+    viewport.height = context->framebuffer_height;
+    viewport.width = context->framebuffer_width;
+    viewport.x = 0;
+    viewport.y = 0;
+    viewport.minDepth = 0;
+    viewport.maxDepth = 1;
+
+    VkRect2D scissor = {0};
+    scissor.extent = context->swapchain.extent;
+    scissor.offset.x = 0;
+    scissor.offset.y = 0;
+
     // Create the graphics pipeline from here
-    if(!vulkan_pipeline_create(
-        context->framebuffer_width,
-        context->framebuffer_height,
-        &context->renderpass,
-        attribute_count,
-        attribute_descriptions,
-        OBJECT_SHADER_STAGE_COUNT,
-        stage_create_infos,
-        &context->device,
-        context->allocator,
-        false,
-        &out_object_shader->pipeline)) {
-            EN_ERROR("Failed to create vulkan graphics pipeline.");
-            return false;
-        }
+    if (!vulkan_pipeline_create(
+            context,
+            &context->renderpass,
+            attribute_count,
+            attribute_descriptions,
+            OBJECT_SHADER_STAGE_COUNT,
+            stage_create_infos,
+            0,
+            0,
+            viewport,
+            scissor,
+            false,
+            &context->object_shader.pipeline))
+    {
+        EN_ERROR("Failed to create vulkan graphics pipeline.");
+        return false;
+    }
 
     return true;
+}
+
+void vulkan_object_shader_use(vulkan_object_shader *shader, vulkan_command_buffer* cb)
+{
+    vulkan_pipeline_bind(cb, &shader->pipeline);
 }
 
 void vulkan_object_shader_destroy(vulkan_object_shader *shader_module)
@@ -103,7 +123,6 @@ void vulkan_object_shader_destroy(vulkan_object_shader *shader_module)
             shader_module->stages[i].handle,
             shader_module->allocator);
     }
-
 }
 
 b8 create_shader_module(const char *name,

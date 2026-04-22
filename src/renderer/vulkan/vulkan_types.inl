@@ -64,6 +64,10 @@ typedef struct vulkan_buffer
 {
 	VkBuffer handle;
 	VkDeviceMemory memory;
+	VkBufferUsageFlagBits usage;
+	b8 is_locked;
+	i32 memory_index;
+	u32 memory_property_flags;
 	const vulkan_device *device;
 	const VkAllocationCallbacks *allocator;
 	VkDeviceSize size;
@@ -198,30 +202,6 @@ typedef struct vulkan_swapchain
 	u32 image_view_count;
 } vulkan_swapchain;
 
-// TODO Move these I dunno, make generic renderbuffers, watch Kohi spast
-typedef struct vertex_buffer
-{
-	vulkan_buffer internal_buffer;
-	const vulkan_device *device;
-	const VkAllocationCallbacks *allocator;
-} vertex_buffer;
-
-typedef struct index_buffer
-{
-	vulkan_buffer internal_buffer;
-	const vulkan_device *device;
-	const VkAllocationCallbacks *allocator;
-} index_buffer;
-
-typedef struct uniform_buffer
-{
-	vulkan_buffer *internal_buffers; // darray
-	const vulkan_device *device;
-	const VkAllocationCallbacks *allocator;
-	vulkan_buffer *uniform_buffers_mapped; // darray
-										   //	ubo ubo;
-} uniform_buffer;
-
 typedef struct vulkan_context
 {
 	u16 current_frame_in_flight_index;
@@ -243,11 +223,15 @@ typedef struct vulkan_context
 
 	vulkan_image image;
 
-	vertex_buffer vertex_buffer;
-	index_buffer index_buffer;
+	vulkan_buffer object_vertex_buffer;
+	vulkan_buffer object_index_buffer;
 
 	vulkan_renderpass renderpass;
 	vulkan_object_shader object_shader;
+
+	// Maintain offset into the buffers
+	u64 geometry_vertex_offset;
+	u64 geometry_index_offset;
 
 	// vulkan_command_buffer
 	vulkan_command_buffer *command_buffers; // darray
