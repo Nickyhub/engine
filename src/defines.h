@@ -8,6 +8,10 @@
 #define true 1
 #define false 0
 
+#define PI 3.141592653589
+
+#define EINLINE static inline
+
 typedef char i8;
 typedef unsigned char b8;
 typedef unsigned char u8;

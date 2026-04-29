@@ -236,11 +236,26 @@ CMakeFiles/engine.dir/src/core/random.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/engine.dir/src/core/random.c.s"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Dev\Projekte\engine\src\core\random.c -o CMakeFiles\engine.dir\src\core\random.c.s
 
+CMakeFiles/engine.dir/src/math/emath.c.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/src/math/emath.c.obj: CMakeFiles/engine.dir/includes_C.rsp
+CMakeFiles/engine.dir/src/math/emath.c.obj: D:/Dev/Projekte/engine/src/math/emath.c
+CMakeFiles/engine.dir/src/math/emath.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/engine.dir/src/math/emath.c.obj"
+	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/math/emath.c.obj -MF CMakeFiles\engine.dir\src\math\emath.c.obj.d -o CMakeFiles\engine.dir\src\math\emath.c.obj -c D:\Dev\Projekte\engine\src\math\emath.c
+
+CMakeFiles/engine.dir/src/math/emath.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/engine.dir/src/math/emath.c.i"
+	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Dev\Projekte\engine\src\math\emath.c > CMakeFiles\engine.dir\src\math\emath.c.i
+
+CMakeFiles/engine.dir/src/math/emath.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/engine.dir/src/math/emath.c.s"
+	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Dev\Projekte\engine\src\math\emath.c -o CMakeFiles\engine.dir\src\math\emath.c.s
+
 CMakeFiles/engine.dir/src/memory/ememory.c.obj: CMakeFiles/engine.dir/flags.make
 CMakeFiles/engine.dir/src/memory/ememory.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/memory/ememory.c.obj: D:/Dev/Projekte/engine/src/memory/ememory.c
 CMakeFiles/engine.dir/src/memory/ememory.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/engine.dir/src/memory/ememory.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/engine.dir/src/memory/ememory.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/memory/ememory.c.obj -MF CMakeFiles\engine.dir\src\memory\ememory.c.obj.d -o CMakeFiles\engine.dir\src\memory\ememory.c.obj -c D:\Dev\Projekte\engine\src\memory\ememory.c
 
 CMakeFiles/engine.dir/src/memory/ememory.c.i: cmake_force
@@ -255,7 +270,7 @@ CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj: CMakeFiles/engine.dir
 CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj: D:/Dev/Projekte/engine/src/renderer/renderer_backend.c
 CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj -MF CMakeFiles\engine.dir\src\renderer\renderer_backend.c.obj.d -o CMakeFiles\engine.dir\src\renderer\renderer_backend.c.obj -c D:\Dev\Projekte\engine\src\renderer\renderer_backend.c
 
 CMakeFiles/engine.dir/src/renderer/renderer_backend.c.i: cmake_force
@@ -270,7 +285,7 @@ CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj: CMakeFiles/engine.di
 CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj: D:/Dev/Projekte/engine/src/renderer/renderer_frontend.c
 CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj -MF CMakeFiles\engine.dir\src\renderer\renderer_frontend.c.obj.d -o CMakeFiles\engine.dir\src\renderer\renderer_frontend.c.obj -c D:\Dev\Projekte\engine\src\renderer\renderer_frontend.c
 
 CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.i: cmake_force
@@ -285,7 +300,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj: CMakeFiles/engine
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_buffer.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_buffer.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_buffer.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_buffer.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_buffer.c.i: cmake_force
@@ -300,7 +315,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj: CMakeFile
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_command_buffer.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_command_buffer.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_command_buffer.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_command_buffer.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_command_buffer.c.i: cmake_force
@@ -315,7 +330,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj: CMakeFiles/engine
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_device.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_device.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_device.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_device.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_device.c.i: cmake_force
@@ -330,7 +345,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj: CMakeFiles/e
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_framebuffer.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_framebuffer.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_framebuffer.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_framebuffer.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_framebuffer.c.i: cmake_force
@@ -345,7 +360,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj: CMakeFiles/engine.
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_image.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_image.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_image.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_image.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_image.c.i: cmake_force
@@ -360,7 +375,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj: CMakeFiles/engi
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_instance.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_instance.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_instance.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_instance.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_instance.c.i: cmake_force
@@ -375,7 +390,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj: CMakeFiles
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_object_shader.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_object_shader.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_object_shader.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_object_shader.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_object_shader.c.i: cmake_force
@@ -390,7 +405,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj: CMakeFiles/engi
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_pipeline.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_pipeline.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_pipeline.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_pipeline.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_pipeline.c.i: cmake_force
@@ -405,7 +420,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: CMakeFi
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_renderer_backend.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_renderer_backend.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_renderer_backend.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderer_backend.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderer_backend.c.i: cmake_force
@@ -420,7 +435,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj: CMakeFiles/en
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_renderpass.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_renderpass.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_renderpass.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_renderpass.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_renderpass.c.i: cmake_force
@@ -435,7 +450,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj: CMakeFiles/eng
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_swapchain.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_swapchain.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_swapchain.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_swapchain.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_swapchain.c.i: cmake_force
@@ -450,7 +465,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj: CMakeFiles/
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_sync_objects.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_sync_objects.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_sync_objects.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_sync_objects.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_sync_objects.c.i: cmake_force
@@ -465,7 +480,7 @@ CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj: CMakeFiles/engine.
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj: CMakeFiles/engine.dir/includes_C.rsp
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj: D:/Dev/Projekte/engine/src/renderer/vulkan/vulkan_utils.c
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj"
 	C:\PROGRA~1\msys2\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.obj -MF CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_utils.c.obj.d -o CMakeFiles\engine.dir\src\renderer\vulkan\vulkan_utils.c.obj -c D:\Dev\Projekte\engine\src\renderer\vulkan\vulkan_utils.c
 
 CMakeFiles/engine.dir/src/renderer/vulkan/vulkan_utils.c.i: cmake_force
@@ -489,6 +504,7 @@ engine_OBJECTS = \
 "CMakeFiles/engine.dir/src/core/logger.c.obj" \
 "CMakeFiles/engine.dir/src/core/platform.c.obj" \
 "CMakeFiles/engine.dir/src/core/random.c.obj" \
+"CMakeFiles/engine.dir/src/math/emath.c.obj" \
 "CMakeFiles/engine.dir/src/memory/ememory.c.obj" \
 "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj" \
 "CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj" \
@@ -520,6 +536,7 @@ engine.exe: CMakeFiles/engine.dir/src/core/input.c.obj
 engine.exe: CMakeFiles/engine.dir/src/core/logger.c.obj
 engine.exe: CMakeFiles/engine.dir/src/core/platform.c.obj
 engine.exe: CMakeFiles/engine.dir/src/core/random.c.obj
+engine.exe: CMakeFiles/engine.dir/src/math/emath.c.obj
 engine.exe: CMakeFiles/engine.dir/src/memory/ememory.c.obj
 engine.exe: CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj
 engine.exe: CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj
@@ -541,7 +558,7 @@ engine.exe: D:/Dev/Projekte/_Libraries/Vulkan/Lib/vulkan-1.lib
 engine.exe: CMakeFiles/engine.dir/linkLibs.rsp
 engine.exe: CMakeFiles/engine.dir/objects1.rsp
 engine.exe: CMakeFiles/engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Linking C executable engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Dev\Projekte\engine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking C executable engine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\engine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

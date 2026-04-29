@@ -392,6 +392,30 @@ src/core/random.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/core/random.c.s
 .PHONY : src/core/random.c.s
 
+src/math/emath.obj: src/math/emath.c.obj
+.PHONY : src/math/emath.obj
+
+# target to build an object file
+src/math/emath.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/math/emath.c.obj
+.PHONY : src/math/emath.c.obj
+
+src/math/emath.i: src/math/emath.c.i
+.PHONY : src/math/emath.i
+
+# target to preprocess a source file
+src/math/emath.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/math/emath.c.i
+.PHONY : src/math/emath.c.i
+
+src/math/emath.s: src/math/emath.c.s
+.PHONY : src/math/emath.s
+
+# target to generate assembly for a file
+src/math/emath.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/src/math/emath.c.s
+.PHONY : src/math/emath.c.s
+
 src/memory/ememory.obj: src/memory/ememory.c.obj
 .PHONY : src/memory/ememory.obj
 
@@ -818,6 +842,9 @@ help:
 	@echo ... src/core/random.obj
 	@echo ... src/core/random.i
 	@echo ... src/core/random.s
+	@echo ... src/math/emath.obj
+	@echo ... src/math/emath.i
+	@echo ... src/math/emath.s
 	@echo ... src/memory/ememory.obj
 	@echo ... src/memory/ememory.i
 	@echo ... src/memory/ememory.s

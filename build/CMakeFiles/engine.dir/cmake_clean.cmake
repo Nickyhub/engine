@@ -21,6 +21,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/engine.dir/src/core/platform.c.obj.d"
   "CMakeFiles/engine.dir/src/core/random.c.obj"
   "CMakeFiles/engine.dir/src/core/random.c.obj.d"
+  "CMakeFiles/engine.dir/src/math/emath.c.obj"
+  "CMakeFiles/engine.dir/src/math/emath.c.obj.d"
   "CMakeFiles/engine.dir/src/memory/ememory.c.obj"
   "CMakeFiles/engine.dir/src/memory/ememory.c.obj.d"
   "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj"

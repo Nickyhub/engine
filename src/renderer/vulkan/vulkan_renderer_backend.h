@@ -19,4 +19,5 @@ b8 vulkan_renderer_backend_begin_frame(struct renderer_backend* backend, f32 del
 b8 vulkan_renderer_backend_end_frame(struct renderer_backend* backend, f32 delta_time);
 
 b8 vulkan_renderer_backend_on_resize(struct renderer_backend* backend, u16 width, u16 height);
+void vulkan_renderer_update_global_state(mat4 projection, mat4 view, vec3 view_position, vec4 ambient_colour, i32 mode);
 void vulkan_renderer_backend_shutdown(struct renderer_backend* backend);

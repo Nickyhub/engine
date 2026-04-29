@@ -67,6 +67,12 @@
 },
 {
   "directory": "D:/Dev/Projekte/engine/build",
+  "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\math\\emath.c.obj -c D:\\Dev\\Projekte\\engine\\src\\math\\emath.c",
+  "file": "D:/Dev/Projekte/engine/src/math/emath.c",
+  "output": "CMakeFiles/engine.dir/src/math/emath.c.obj"
+},
+{
+  "directory": "D:/Dev/Projekte/engine/build",
   "command": "C:\\PROGRA~1\\msys2\\mingw64\\bin\\gcc.exe -D_DEBUG @CMakeFiles/engine.dir/includes_C.rsp -g -o CMakeFiles\\engine.dir\\src\\memory\\ememory.c.obj -c D:\\Dev\\Projekte\\engine\\src\\memory\\ememory.c",
   "file": "D:/Dev/Projekte/engine/src/memory/ememory.c",
   "output": "CMakeFiles/engine.dir/src/memory/ememory.c.obj"

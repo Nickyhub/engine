@@ -1,29 +1,26 @@
 #pragma once
-
+#include "defines.h"
 
 typedef struct vec2 {
-    float x;
-    float y;
+    f32 x;
+    f32 y;
 } vec2;
 
 typedef struct vec3 {
-    float x;
-    float y;
-    float z;
+    f32 x;
+    f32 y;
+    f32 z;
 } vec3;
 
 typedef struct vec4 {
-    float x;
-    float y;
-    float z;
-    float w;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 w;
 } vec4;
 
 typedef struct mat4 {
-    float v1[4];
-    float v2[4];
-    float v3[4];
-    float v4[4];
+    f32 data[4][4];
 } mat4;
 
 typedef struct vertex_3d {

@@ -1,17 +1,15 @@
 #version 450
 
-layout(binding = 0) uniform UniformBufferObject {
-    mat4 model;
-    mat4 view;
+// set: descriptor_set
+layout(set = 0, binding = 0) uniform global_uniform_object {
     mat4 proj;
-} ubo;
+    mat4 view;
+} global_ubo;
 
 layout(location = 0) in vec3 inPosition;
 
 layout(location = 0) out vec3 position;
 
 void main() {
-    //gl_Position = ubo.proj * ubo.view * ubo.model * vec4(inPosition, 1.0);
-    gl_Position = vec4(inPosition, 1.0);
-    position = inPosition;
+    gl_Position = global_ubo.proj * global_ubo.view * vec4(inPosition, 1.0f);
 }

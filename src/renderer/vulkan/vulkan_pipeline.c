@@ -23,10 +23,6 @@ b8 vulkan_pipeline_create(
 	vulkan_pipeline *out_pipeline)
 {
 	out_pipeline->device = &context->device;
-	// out_pipeline->frames_in_flight = frames_in_flight;
-
-	// First create descriptor set layout
-	vulkan_pipeline_create_descriptor_set_layout(out_pipeline);
 
 	VkPipelineViewportStateCreateInfo viewport_state_info = {0};
 	viewport_state_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
@@ -169,121 +165,8 @@ void vulkan_pipeline_bind(vulkan_command_buffer *command_buffer, vulkan_pipeline
 	vkCmdBindPipeline(command_buffer->handle, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->handle);
 }
 
-b8 vulkan_pipeline_create_descriptor_pool(vulkan_pipeline *pipeline)
-{
-	VkDescriptorPoolSize pool_sizes[2];
-
-	pool_sizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-	pool_sizes[0].descriptorCount = (uint32_t)(pipeline->frames_in_flight);
-	pool_sizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-	pool_sizes[1].descriptorCount = (uint32_t)(pipeline->frames_in_flight);
-
-	VkDescriptorPoolCreateInfo pool_info;
-	pool_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-	pool_info.poolSizeCount = 2;
-	pool_info.pPoolSizes = pool_sizes;
-	pool_info.maxSets = (uint32_t)(pipeline->frames_in_flight);
-
-	VK_CHECK(vkCreateDescriptorPool(pipeline->device->handle, &pool_info, pipeline->allocator, &pipeline->descriptor_pool));
-	return true;
-}
-
-b8 vulkan_pipeline_create_descriptor_sets(
-	const VkImageView *view,
-	const VkSampler *sampler,
-	vulkan_pipeline *pipeline)
-{
-	// This surely breaks something I guess
-	VkDescriptorSetLayout *layouts = darray_create(VkDescriptorSetLayout);
-	for (unsigned int i = 0; i < pipeline->frames_in_flight; i++)
-	{
-		darray_push_back(layouts, pipeline->descriptor_set_layout);
-	}
-
-	VkDescriptorSetAllocateInfo alloc_info = {0};
-	alloc_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-	alloc_info.descriptorPool = pipeline->descriptor_pool;
-	alloc_info.descriptorSetCount = (uint32_t)(pipeline->frames_in_flight);
-	alloc_info.pSetLayouts = layouts;
-
-	darray_resize(&pipeline->descriptor_sets, pipeline->frames_in_flight);
-	VK_CHECK(vkAllocateDescriptorSets(pipeline->device->handle, &alloc_info, pipeline->descriptor_sets));
-
-	for (unsigned int i = 0; i < pipeline->frames_in_flight; i++)
-	{
-		// TODO KEINE AHNUNG WAS WIR MIT DEM UNIFORM BUFFER HIER MACHEN
-		//  VkDescriptorBufferInfo buffer_info;
-		//  buffer_info.buffer = uniformBuffer.m_Buffers[i]->m_Handle;
-		//  buffer_info.offset = 0;
-		//  buffer_info.range = sizeof(UniformBufferObject);
-
-		// VkDescriptorImageInfo imageInfo{};
-		// imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		// imageInfo.imageView = imageView;
-		// imageInfo.sampler = sampler;
-
-		// std::vector<VkWriteDescriptorSet> descriptorWrites;
-		// descriptorWrites.resize(2);
-
-		// descriptorWrites[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		// descriptorWrites[0].dstSet = m_DescriptorSets[i];
-		// descriptorWrites[0].dstBinding = 0;
-		// descriptorWrites[0].dstArrayElement = 0;
-		// descriptorWrites[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		// descriptorWrites[0].descriptorCount = 1;
-		// descriptorWrites[0].pBufferInfo = &buffer_info;
-
-		// descriptorWrites[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		// descriptorWrites[1].dstSet = m_DescriptorSets[i];
-		// descriptorWrites[1].dstBinding = 1;
-		// descriptorWrites[1].dstArrayElement = 0;
-		// descriptorWrites[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-		// descriptorWrites[1].descriptorCount = 1;
-		// descriptorWrites[1].pImageInfo = &imageInfo;
-
-		// vkUpdateDescriptorSets(m_Device.m_LogicalDevice, static_cast<uint32_t>(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
-	}
-	darray_destroy(layouts);
-	return true;
-}
-
-b8 vulkan_pipeline_create_descriptor_set_layout(vulkan_pipeline *pipeline)
-{
-	VkDescriptorSetLayoutBinding ubo_layout_binding;
-	ubo_layout_binding.binding = 0;
-	ubo_layout_binding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-	ubo_layout_binding.descriptorCount = 1;
-	ubo_layout_binding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-	ubo_layout_binding.pImmutableSamplers = 0; // Optional
-
-	VkDescriptorSetLayoutBinding sampler_layout_binding;
-	sampler_layout_binding.binding = 1;
-	sampler_layout_binding.descriptorCount = 1;
-	sampler_layout_binding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-	sampler_layout_binding.pImmutableSamplers = 0;
-	sampler_layout_binding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-	VkDescriptorSetLayoutBinding layout_bindings[2];
-	layout_bindings[0] = ubo_layout_binding;
-	layout_bindings[1] = sampler_layout_binding;
-
-	VkDescriptorSetLayoutCreateInfo layout_info;
-	layout_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-	layout_info.bindingCount = 2;
-	layout_info.pBindings = layout_bindings;
-
-	VK_CHECK(vkCreateDescriptorSetLayout(pipeline->device->handle,
-										 &layout_info,
-										 pipeline->allocator,
-										 &pipeline->descriptor_set_layout));
-	return true;
-}
-
 void vulkan_pipeline_destroy(vulkan_pipeline *pipeline)
 {
-	vkDestroyDescriptorPool(pipeline->device->handle, pipeline->descriptor_pool, 0);
-	vkDestroyDescriptorSetLayout(pipeline->device->handle, pipeline->descriptor_set_layout, pipeline->allocator);
-
 	vkDestroyPipeline(pipeline->device->handle, pipeline->handle, pipeline->allocator);
 	vkDestroyPipelineLayout(pipeline->device->handle, pipeline->layout, pipeline->allocator);
 	ezero_out(pipeline, sizeof(vulkan_pipeline));

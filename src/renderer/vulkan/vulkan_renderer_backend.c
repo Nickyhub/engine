@@ -137,40 +137,48 @@ b8 vulkan_renderer_backend_initialize(
 			EN_ERROR("Failed to create vulkan command buffer in vulkan backend.");
 			return false;
 		}
-
 		vulkan_semaphore_create(&context->device, context->allocator, &context->render_finished_semaphores[i]);
 	}
-
+	
 	// Create per frame in flight resources
 	context->image_available_semaphores = darray_create_size(vulkan_semaphore, context->swapchain.max_frames_in_flight);
 	context->in_flight_fences = darray_create_size(vulkan_fence, context->swapchain.max_frames_in_flight);
 	for (u32 i = 0; i < context->swapchain.max_frames_in_flight; i++)
 	{
-		vulkan_semaphore_create(&context->device, context->allocator, &context->image_available_semaphores[i]);
 		vulkan_fence_create(&context->device, context->allocator, &context->in_flight_fences[i]);
+		vulkan_semaphore_create(&context->device, context->allocator, &context->image_available_semaphores[i]);
 	}
 
 	create_buffers(context);
 
 	// TODO temporary test code
-	const u32 vert_count = 3;
+	const u32 vert_count = 4;
 	vertex_3d verts[vert_count];
 	ezero_out(verts, sizeof(vertex_3d) * vert_count);
 
-	verts[2].position.x = 0.0; // oben
-	verts[2].position.y = -0.5;
+	const f32 scale = 1.0f;
 
-	verts[1].position.x = 0.5; // oben rechts
-	verts[1].position.y = 0.5;
+	verts[0].position.x = -0.5 * scale; // unten links
+	verts[0].position.y = -0.5 * scale;
 
-	verts[0].position.x = 0.0; // unten mitte
-	verts[0].position.y = 0.5;
+	verts[1].position.x = 0.5 * scale; // unten rechts
+	verts[1].position.y = -0.5 * scale;
 
-	const u32 index_count = 3;
+	verts[2].position.x = 0.5 * scale; // oben rechts
+	verts[2].position.y = 0.5 * scale;
+
+	verts[3].position.x = -0.5 * scale; // oben links
+	verts[3].position.y = 0.5 * scale;
+
+	const u32 index_count = 6;
 	u32 indices[index_count];
 	indices[0] = 0;
 	indices[1] = 1;
 	indices[2] = 2;
+
+	indices[3] = 2;
+	indices[4] = 3;
+	indices[5] = 0;
 
 	upload_data_range(context, 0, context->device.graphics_queue, &context->object_vertex_buffer, 0, sizeof(vertex_3d) * vert_count, verts);
 	upload_data_range(context, 0, context->device.graphics_queue, &context->object_index_buffer, 0, sizeof(u32) * index_count, indices);
@@ -252,12 +260,12 @@ b8 vulkan_renderer_backend_begin_frame(struct renderer_backend *backend, f32 del
 		&context->renderpass);
 
 	VkViewport viewport = {0};
-	viewport.x = 0.0f;
-	viewport.y = 0.0f;
-	viewport.width = (float)(context->swapchain.width);
-	viewport.height = (float)(context->swapchain.height);
-	viewport.minDepth = 0.0f;
-	viewport.maxDepth = 1.0f;
+	viewport.y = (float)context->framebuffer_height; // y startet unten
+	viewport.x = 0;
+	viewport.width = (float)context->framebuffer_width;
+	viewport.height = -(float)context->framebuffer_height; // negativ = flip
+	viewport.minDepth = 0;
+	viewport.maxDepth = 1;
 	vkCmdSetViewport(cb->handle, 0, 1, &viewport);
 
 	// Create scissor
@@ -266,17 +274,31 @@ b8 vulkan_renderer_backend_begin_frame(struct renderer_backend *backend, f32 del
 	scissor.extent = context->swapchain.extent;
 	vkCmdSetScissor(cb->handle, 0, 1, &scissor);
 
-	// TODO temporary test code
+	return true;
+}
+
+void vulkan_renderer_update_global_state(
+	mat4 projection,
+	mat4 view,
+	vec3 view_position,
+	vec4 ambient_colour,
+	i32 mode)
+{
+	vulkan_command_buffer *cb = &context->command_buffers[context->swapchain.current_swapchain_image_index];
 	vulkan_object_shader_use(&context->object_shader, cb);
 
-	VkDeviceSize offsets[1] = {0};
-	vkCmdBindVertexBuffers(cb->handle, 0, 1, &context->object_vertex_buffer.handle, (VkDeviceSize*)offsets);
+	context->object_shader.global_ubo.proj = projection;
+	context->object_shader.global_ubo.view = view;
+	
+	// // TODO temporary test code
+	vulkan_object_shader_use(&context->object_shader, cb);
+	vulkan_object_shader_update_global_state(context, &context->object_shader);
 
+	VkDeviceSize offsets[1] = {0};
+	vkCmdBindVertexBuffers(cb->handle, 0, 1, &context->object_vertex_buffer.handle, (VkDeviceSize *)offsets);
 	vkCmdBindIndexBuffer(cb->handle, context->object_index_buffer.handle, 0, VK_INDEX_TYPE_UINT32);
 
-	vkCmdDrawIndexed(cb->handle, 3, 1, 0, 0, 0);
-
-	return true;
+	vkCmdDrawIndexed(cb->handle, 6, 1, 0, 0, 0);
 }
 
 b8 vulkan_renderer_backend_end_frame(struct renderer_backend *backend, f32 delta_time)

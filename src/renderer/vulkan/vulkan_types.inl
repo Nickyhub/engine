@@ -100,8 +100,6 @@ typedef struct vulkan_pipeline
 {
 	VkDescriptorSetLayout descriptor_set_layout;
 	VkPipelineLayout layout;
-	VkDescriptorSet *descriptor_sets; // darray
-	VkDescriptorPool descriptor_pool;
 
 	const vulkan_device *device;
 	const VkAllocationCallbacks *allocator;
@@ -125,6 +123,16 @@ typedef struct vulkan_object_shader
 	// currently: vertex, fragment
 	vulkan_shader_stage stages[OBJECT_SHADER_STAGE_COUNT];
 	vulkan_pipeline pipeline;
+
+	VkDescriptorSetLayout global_descriptor_set_layout;
+	VkDescriptorPool descriptor_pool;
+	VkDescriptorSet global_descriptor_sets[3];
+
+	global_uniform_object global_ubo;
+
+	// Just one global to the scene
+	vulkan_buffer global_uniform_buffer;
+
 	const vulkan_device *device;
 	const VkAllocationCallbacks *allocator;
 } vulkan_object_shader;
@@ -220,8 +228,6 @@ typedef struct vulkan_context
 	u32 framebuffer_width;
 	u32 framebuffer_generation;
 	u32 framebuffer_last_generation;
-
-	vulkan_image image;
 
 	vulkan_buffer object_vertex_buffer;
 	vulkan_buffer object_index_buffer;

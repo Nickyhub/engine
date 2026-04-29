@@ -19,6 +19,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/Dev/Projekte/engine/src/core/logger.c" "CMakeFiles/engine.dir/src/core/logger.c.obj" "gcc" "CMakeFiles/engine.dir/src/core/logger.c.obj.d"
   "D:/Dev/Projekte/engine/src/core/platform.c" "CMakeFiles/engine.dir/src/core/platform.c.obj" "gcc" "CMakeFiles/engine.dir/src/core/platform.c.obj.d"
   "D:/Dev/Projekte/engine/src/core/random.c" "CMakeFiles/engine.dir/src/core/random.c.obj" "gcc" "CMakeFiles/engine.dir/src/core/random.c.obj.d"
+  "D:/Dev/Projekte/engine/src/math/emath.c" "CMakeFiles/engine.dir/src/math/emath.c.obj" "gcc" "CMakeFiles/engine.dir/src/math/emath.c.obj.d"
   "D:/Dev/Projekte/engine/src/memory/ememory.c" "CMakeFiles/engine.dir/src/memory/ememory.c.obj" "gcc" "CMakeFiles/engine.dir/src/memory/ememory.c.obj.d"
   "D:/Dev/Projekte/engine/src/renderer/renderer_backend.c" "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj" "gcc" "CMakeFiles/engine.dir/src/renderer/renderer_backend.c.obj.d"
   "D:/Dev/Projekte/engine/src/renderer/renderer_frontend.c" "CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj" "gcc" "CMakeFiles/engine.dir/src/renderer/renderer_frontend.c.obj.d"
