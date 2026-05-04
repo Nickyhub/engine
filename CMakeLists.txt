@@ -1,18 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 project(engine)
 
-find_package(Vulkan REQUIRED)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor
-    ${Vulkan_INCLUDE_DIRS}
-)
-
-file(GLOB_RECURSE SOURCES "src/*.c")
-file(GLOB_RECURSE HEADERS "src/*.h")
-
-add_compile_definitions(_DEBUG)
-
-add_executable(engine ${SOURCES} ${HEADERS})
-target_link_libraries(engine ${Vulkan_LIBRARIES})  # automatisch auf vulkan-1.lib
+add_subdirectory(engine)
+add_subdirectory(game)
