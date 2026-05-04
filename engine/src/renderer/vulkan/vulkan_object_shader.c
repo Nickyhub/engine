@@ -82,19 +82,19 @@ b8 vulkan_object_shader_create(
         &out_object_shader->descriptor_pool));
 
     // dynamically create VertexInputAttributeDescription
-    const u32 attribute_count = 1;
-    VkVertexInputAttributeDescription attribute_descriptions[attribute_count];
+#define ATTRIBUTE_COUNT 2
+    VkVertexInputAttributeDescription attribute_descriptions[ATTRIBUTE_COUNT];
 
-    VkFormat formats[attribute_count];
+    VkFormat formats[ATTRIBUTE_COUNT];
     formats[0] = VK_FORMAT_R32G32B32_SFLOAT; // vec3 position
-    // formats[1] = VK_FORMAT_R32G32B32_SFLOAT; // vec3 color
+    formats[1] = VK_FORMAT_R32G32_SFLOAT; // vec3 color
 
-    u64 sizes[attribute_count];
+    u64 sizes[ATTRIBUTE_COUNT];
     sizes[0] = sizeof(vec3);
-    // sizes[1] = sizeof(vec3);
+    sizes[1] = sizeof(vec2);
 
     u32 offset = 0;
-    for (u32 i = 0; i < attribute_count; i++)
+    for (u32 i = 0; i < ATTRIBUTE_COUNT; i++)
     {
         attribute_descriptions[i].binding = 0;
         attribute_descriptions[i].format = formats[i];
@@ -104,7 +104,6 @@ b8 vulkan_object_shader_create(
     }
 
     // Descriptor set layouts.
-
     VkPipelineShaderStageCreateInfo stage_create_infos[OBJECT_SHADER_STAGE_COUNT];
     for (u32 i = 0; i < OBJECT_SHADER_STAGE_COUNT; i++)
     {
@@ -113,8 +112,10 @@ b8 vulkan_object_shader_create(
     }
 
     // LOCAL Descriptor sets BEGIN
+    const u32 local_sampler_count = 1;
     VkDescriptorType descriptor_types[VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT] = {
-        VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+        VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,              // Binding 0 - uniform buffer
+        VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,      // Binding 1 - Diffuse sampler layout
     };
     VkDescriptorSetLayoutBinding bindings[VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT];
     ezero_out(bindings, sizeof(VkDescriptorSetLayoutBinding) * VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT);
@@ -135,20 +136,23 @@ b8 vulkan_object_shader_create(
         &out_object_shader->object_descriptor_set_layout));
 
     // Local/Object descriptor pool: Used for object-specific itemslike diffuse colour
-    VkDescriptorPoolSize object_pool_sizes[1];
+    VkDescriptorPoolSize object_pool_sizes[2];
     // the first section will be used for uniform buffers
     object_pool_sizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     object_pool_sizes[0].descriptorCount = VULKAN_OBJECT_MAX_OBJECT_COUNT;
+    // the second section will be used for the image samplers
+    object_pool_sizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    object_pool_sizes[1].descriptorCount = local_sampler_count * VULKAN_OBJECT_MAX_OBJECT_COUNT;
 
     // Create object descriptor pool
     VkDescriptorPoolCreateInfo object_pool_info = {VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO};
-    object_pool_info.poolSizeCount = 1;
+    object_pool_info.poolSizeCount = 2;
     object_pool_info.pPoolSizes = object_pool_sizes;
     object_pool_info.maxSets = VULKAN_OBJECT_MAX_OBJECT_COUNT;
 
     VK_CHECK(vkCreateDescriptorPool(
         context->device.handle,
-        &pool_info, context->allocator,
+        &object_pool_info, context->allocator,
         &out_object_shader->object_descriptor_pool));
 
     VkViewport viewport = {0};
@@ -189,7 +193,7 @@ b8 vulkan_object_shader_create(
     if (!vulkan_pipeline_create(
             context,
             &context->renderpass,
-            attribute_count,
+            ATTRIBUTE_COUNT,
             attribute_descriptions,
             OBJECT_SHADER_STAGE_COUNT,
             stage_create_infos,
@@ -392,7 +396,7 @@ void vulkan_object_shader_update_object(vulkan_context *context, vulkan_object_s
     // Descriptor 0  - Uniform buffer
     u32 range = sizeof(object_uniform_object);
     u64 offset = sizeof(object_uniform_object) * data.object_id;
-    object_uniform_object obo;
+    object_uniform_object obo = {0};
 
     // TODO: get diffuse colour from material.
     static f32 accumulator = 0.0f;
@@ -430,6 +434,41 @@ void vulkan_object_shader_update_object(vulkan_context *context, vulkan_object_s
         object_state->descriptor_states[descriptor_index].generations[image_index] = 1;
     }
     descriptor_index++;
+
+
+    // TODO samplers
+    const u32 sampler_count = 1;
+    VkDescriptorImageInfo image_infos[1];
+    for(u32 sampler_index = 0; sampler_index < sampler_count; ++sampler_index) {
+        texture* t = data.textures[sampler_index];
+        u32* descriptor_generation = &object_state->descriptor_states[descriptor_index].generations[image_index];
+
+        // Check if the descriptor needs updating first
+        if(t && (*descriptor_generation != t->generation ||*descriptor_generation == INVALID_ID)) {
+            vulkan_texture_data* internal_data = (vulkan_texture_data*)t->internal_data;
+
+            // Assign view and sampler
+            image_infos[sampler_index].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            image_infos[sampler_index].imageView = internal_data->image.view;
+            image_infos[sampler_index].sampler = internal_data->sampler;
+
+            VkWriteDescriptorSet descriptor = {VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET};
+            descriptor.dstSet = object_descriptor_set;
+            descriptor.dstBinding = descriptor_index;
+            descriptor.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            descriptor.descriptorCount = 1;
+            descriptor.pImageInfo = &image_infos[sampler_index];
+
+            descriptor_writes[descriptor_count] = descriptor;
+            descriptor_count++;
+
+            // Sync frame generation if notusing a default texture.
+            if(t->generation != INVALID_ID) {
+                *descriptor_generation = t->generation;
+            }
+            descriptor_index++;
+        }
+    }
 
     if (descriptor_count > 0)
     {

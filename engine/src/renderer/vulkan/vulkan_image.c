@@ -139,7 +139,7 @@ b8 create_image_view(VkFormat format, VkImageAspectFlags aspect_flags, vulkan_im
 
 b8 vulkan_image_create_texture_sampler(VkSampler *out_sampler, vulkan_image *image)
 {
-	VkSamplerCreateInfo sampler_info;
+	VkSamplerCreateInfo sampler_info = {0};
 	sampler_info.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
 	sampler_info.magFilter = VK_FILTER_LINEAR;
 	sampler_info.minFilter = VK_FILTER_LINEAR;

@@ -30,6 +30,9 @@ void ecopy(const void* src, void* dst, u32 size);
 
 void ezero_out(void* dst, u32 size);
 
+void eset_memory(void* dst, u32 size, u32 value);
+
 void print_memory_stats();
 
 EAPI u64 get_memory_alloc_count();
+

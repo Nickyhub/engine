@@ -39,6 +39,10 @@ void efree(void *ptr, u64 size, memory_allocation_type type)
     free(ptr);
 }
 
+void eset_memory(void* dst, u32 size, u32 value) {
+    memset(dst, value, size);
+}
+
 void ecopy(const void *src, void *dst, u32 size)
 {
     memcpy(dst, src, size);

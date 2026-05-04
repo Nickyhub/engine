@@ -30,6 +30,7 @@ typedef struct mat4 {
 
 typedef struct vertex_3d {
     vec3 position;
+    vec2 tex_coord;
 } vertex_3d;
 
 typedef vec4 quat;

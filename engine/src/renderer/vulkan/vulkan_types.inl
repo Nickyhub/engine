@@ -109,7 +109,7 @@ typedef struct vulkan_pipeline
 } vulkan_pipeline;
 
 #define OBJECT_SHADER_STAGE_COUNT 2
-#define VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT 1
+#define VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT 2
 
 typedef struct vulkan_descriptor_state{
 	// One per frame

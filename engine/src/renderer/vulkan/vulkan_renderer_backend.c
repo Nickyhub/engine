@@ -8,7 +8,6 @@
 #include "vulkan_object_shader.h"
 #include "vulkan_image.h"
 
-
 #include "math/math_types.h"
 
 #include "core/platform.h"
@@ -162,15 +161,23 @@ b8 vulkan_renderer_backend_initialize(
 
 	verts[0].position.x = -0.5 * scale; // unten links
 	verts[0].position.y = -0.5 * scale;
+	verts[0].tex_coord.x = 0.0f;
+	verts[0].tex_coord.y = 0.0f;
 
 	verts[1].position.x = 0.5 * scale; // unten rechts
 	verts[1].position.y = -0.5 * scale;
+	verts[1].tex_coord.x = 1.0f;
+	verts[1].tex_coord.y = 1.0f;
 
 	verts[2].position.x = 0.5 * scale; // oben rechts
 	verts[2].position.y = 0.5 * scale;
+	verts[2].tex_coord.x = 0.0f;
+	verts[2].tex_coord.y = 1.0f;
 
 	verts[3].position.x = -0.5 * scale; // oben links
 	verts[3].position.y = 0.5 * scale;
+	verts[3].tex_coord.x = 1.0f;
+	verts[3].tex_coord.y = 0.0f;
 
 	const u32 index_count = 6;
 	u32 indices[index_count];
@@ -187,7 +194,8 @@ b8 vulkan_renderer_backend_initialize(
 	// END temporary test code
 
 	u32 object_id = 0;
-	if(!vulkan_object_shader_acquire_resources(context, &context->object_shader, &object_id)) {
+	if (!vulkan_object_shader_acquire_resources(context, &context->object_shader, &object_id))
+	{
 		EN_ERROR("Failed to acquire shader resources.");
 		return false;
 	}
@@ -550,7 +558,8 @@ void vulkan_renderer_backend_create_texture(
 	out_texture->generation = INVALID_ID;
 
 	// TODO Use an allocator for this.
-	out_texture->internal_data = (vulkan_texture_data*)eallocate(sizeof(vulkan_texture_data), MEMORY_TYPE_TEXTURE);
+	out_texture->internal_data = (vulkan_texture_data *)eallocate(sizeof(vulkan_texture_data), MEMORY_TYPE_TEXTURE);
+	ezero_out(out_texture->internal_data, sizeof(vulkan_texture_data));
 	vulkan_texture_data *data = (vulkan_texture_data *)out_texture->internal_data;
 	VkDeviceSize size = width * height * channel_count;
 
@@ -583,9 +592,8 @@ void vulkan_renderer_backend_create_texture(
 		VK_IMAGE_LAYOUT_UNDEFINED,
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
-
 	vulkan_image_copy_buffer_to_image(&data->image, &staging.handle, width, height);
-	
+
 	// cleanup staging buffer
 	vulkan_buffer_destroy(&staging);
 
@@ -596,6 +604,7 @@ void vulkan_renderer_backend_create_texture(
 		VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 	VkSamplerCreateInfo sampler_info = {0};
+	sampler_info.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
 	sampler_info.magFilter = VK_FILTER_LINEAR;
 	sampler_info.minFilter = VK_FILTER_LINEAR;
 	sampler_info.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
@@ -606,14 +615,15 @@ void vulkan_renderer_backend_create_texture(
 	sampler_info.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
 	sampler_info.unnormalizedCoordinates = VK_FALSE;
 	sampler_info.compareEnable = VK_FALSE;
-	sampler_info.compareEnable = VK_COMPARE_OP_ALWAYS;
+	sampler_info.compareOp = VK_COMPARE_OP_ALWAYS;
 	sampler_info.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
 	sampler_info.mipLodBias = 0.0f;
 	sampler_info.minLod = 0.0f;
 	sampler_info.maxLod = 0.0f;
 
 	VkResult result = vkCreateSampler(context->device.handle, &sampler_info, context->allocator, &data->sampler);
-	if(result != VK_SUCCESS) {
+	if (result != VK_SUCCESS)
+	{
 		EN_ERROR("Failed to create sampler for image.");
 		return;
 	}
@@ -624,7 +634,7 @@ void vulkan_renderer_backend_destroy_texture(
 	texture *texture)
 {
 	vkDeviceWaitIdle(context->device.handle);
-	vulkan_texture_data* data = texture->internal_data;
+	vulkan_texture_data *data = texture->internal_data;
 	vulkan_image_destroy(&data->image);
 	vkDestroySampler(context->device.handle, data->sampler, context->allocator);
 
