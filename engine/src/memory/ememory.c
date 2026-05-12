@@ -14,7 +14,6 @@ void memory_system_initialize()
 
 void memory_system_shutdown()
 {
-    print_memory_stats();
     efree(mem_state, sizeof(memory_system_state), MEMORY_TYPE_SYSTEM_STATE);
     mem_state = 0;
 }

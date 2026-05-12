@@ -3,7 +3,7 @@
 #include "logger.h"
 #include "memory/ememory.h"
 
-static event_system_state *system_state;
+static event_system_state *state_ptr;
 
 void registered_event_create(event_type type, pfnOnEvent callback, registered_event *out_event)
 {
@@ -11,20 +11,27 @@ void registered_event_create(event_type type, pfnOnEvent callback, registered_ev
 	out_event->type = type;
 }
 
-b8 event_system_initialize()
+b8 event_system_initialize(u64 *memory_requirement, void *state)
 {
-	system_state = eallocate(sizeof(event_system_state), MEMORY_TYPE_SYSTEM_STATE);
-	system_state->current_event_id_slot = 0;
-	ezero_out(system_state, sizeof(event_system_state));
-	system_state->registered_events = darray_create_size(registered_event, MAX_REGISTERED_EVENT_CALLBACKS);
+	if (memory_requirement && !state)
+	{
+		*memory_requirement = sizeof(event_system_state);
+		return true;
+	}
+
+	state_ptr = state;
+	state_ptr->current_event_id_slot = 0;
+	state_ptr->registered_events = darray_create_size(registered_event, MAX_REGISTERED_EVENT_CALLBACKS);
+	EN_INFO("Event system initialized.");
+	return true;
 }
 
 void event_system_register_event(registered_event reg_event)
 {
-	if (reg_event.callback && system_state->current_event_id_slot < MAX_REGISTERED_EVENT_CALLBACKS - 1)
+	if (reg_event.callback && state_ptr->current_event_id_slot < MAX_REGISTERED_EVENT_CALLBACKS - 1)
 	{
-		darray_push_back(system_state->registered_events, reg_event);
-		system_state->current_event_id_slot++;
+		darray_push_back(state_ptr->registered_events, reg_event);
+		state_ptr->current_event_id_slot++;
 	}
 	else
 	{
@@ -36,12 +43,12 @@ void event_system_trigger_event(void *sender, event_context context, event_type 
 {
 	if (type != EVENT_TYPE_MAX)
 	{
-		for (u32 i = 0; i < darray_length(system_state->registered_events); i++)
+		for (u32 i = 0; i < darray_length(state_ptr->registered_events); i++)
 		{
-			if (system_state->registered_events[i].type == type && system_state->registered_events[i].callback)
+			if (state_ptr->registered_events[i].type == type && state_ptr->registered_events[i].callback)
 			{
 				// Get the callback and call it with the appropriate context
-				system_state->registered_events[i].callback(sender, context, type);
+				state_ptr->registered_events[i].callback(sender, context, type);
 			}
 		}
 	}
@@ -51,8 +58,8 @@ void event_system_trigger_event(void *sender, event_context context, event_type 
 	}
 }
 
-void event_system_shutdown()
+void event_system_shutdown(void *state)
 {
-	darray_destroy(system_state->registered_events);
-	efree(system_state, sizeof(event_system_state), MEMORY_TYPE_SYSTEM_STATE);
+	darray_destroy(state_ptr->registered_events);
+	state_ptr = 0;
 }

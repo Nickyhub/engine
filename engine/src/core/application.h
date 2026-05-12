@@ -14,16 +14,6 @@ typedef struct application_config {
 	const char* name;
 } application_config;
 
-typedef struct systems_config {
-	unsigned int width;
-	unsigned int height;
-	const char* name;
-} systems_config;
-
-typedef struct systems {
-	platform_state platform;
-	renderer_frontend renderer_frontend;
-} systems;
 
 EAPI b8 application_initialize(struct game* game);
 

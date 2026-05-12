@@ -46,6 +46,7 @@ typedef struct global_uniform_object
 typedef struct renderer_backend
 {
 	struct platform_state *plat_state;
+	// Pointers to default textures.
 
 	b8 (*initialize)(struct renderer_backend *backend, const char *application_name, struct platform_state *plat_state);
 	void (*shutdown)(struct renderer_backend *backend);
@@ -57,7 +58,6 @@ typedef struct renderer_backend
 
 	void(*create_texture)(
 		const char* name,
-		b8 auto_release,
 		i32 width,
 		i32 height,
 		i32 channel_count,

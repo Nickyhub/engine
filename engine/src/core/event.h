@@ -16,6 +16,12 @@ typedef enum event_type {
 	EVENT_TYPE_WINDOW_CLOSE,
 	EVENT_TYPE_WINDOW_MOVED,
 	
+	EVENT_TYPE_DEBUG0 = 0x10,
+	EVENT_TYPE_DEBUG1 = 0x11,
+	EVENT_TYPE_DEBUG2 = 0x12,
+	EVENT_TYPE_DEBUG3 = 0x13,
+	EVENT_TYPE_DEBUG4 = 0x14,
+
 	EVENT_TYPE_MAX,
 } event_type;
 
@@ -43,10 +49,10 @@ typedef struct event_system_state {
 	u16 current_event_id_slot;
 } event_system_state;
 
-b8 event_system_initialize();
+b8 event_system_initialize(u64 *memory_requirement, void *state);
 
 void event_system_register_event(registered_event reg_event);
 
 void event_system_trigger_event(void* sender, event_context context, event_type type);
 
-void event_system_shutdown();
+void event_system_shutdown(void *state);

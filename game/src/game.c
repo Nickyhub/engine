@@ -5,6 +5,7 @@
 
 #include <core/input.h>
 #include <math/emath.h>
+#include <core/event.h>
 
 // Dont include this from the engine if you have the camera
 #include <renderer/renderer_frontend.h>
@@ -27,6 +28,16 @@ b8 game_update(game *game_inst, f32 delta_time)
     alloc_count = get_memory_alloc_count();
 
     game_state *state = game_inst->state;
+
+    if (input_is_key_pressed('M'))
+    {
+        EN_DEBUG("Memory allocations from game: %llu.", alloc_count);
+    }
+    if (input_was_key_pressed('T') && input_is_key_up('T'))
+    {
+        event_context c = {0};
+        event_system_trigger_event(game_inst, c, EVENT_TYPE_DEBUG0);
+    }
 
     if (input_is_key_pressed('A'))
     {

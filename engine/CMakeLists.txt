@@ -5,7 +5,6 @@ find_package(Vulkan REQUIRED)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/vendor
     ${Vulkan_INCLUDE_DIRS}
 )
 
@@ -15,5 +14,10 @@ file(GLOB_RECURSE HEADERS "src/*.h")
 add_compile_definitions(_DEBUG)
 
 add_library(engine SHARED ${SOURCES} ${HEADERS}
-    src/renderer/camera.h)
+    src/renderer/camera.h
+    src/containers/hashtable.h
+    src/systems/texture_system.h
+    src/systems/texture_system.c
+    src/memory/linear_allocator.h
+    src/memory/linear_allocator.c)
 target_link_libraries(engine ${Vulkan_LIBRARIES})  # automatisch auf vulkan-1.lib

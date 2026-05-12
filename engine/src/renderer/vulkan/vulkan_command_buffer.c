@@ -27,11 +27,6 @@ b8 vulkan_command_buffer_create(const vulkan_device *device,
 	return true;
 }
 
-	vulkan_command_buffer_state state;
-	VkCommandBuffer handle;
-	const vulkan_device* device;
-	VkCommandPool command_pool;
-
 void vulkan_command_buffer_destroy(vulkan_command_buffer* buffer) {
 	vkFreeCommandBuffers(buffer->device->handle, buffer->command_pool, 1, &buffer->handle);
 	buffer->state = COMMAND_BUFFER_DEALLOCATED;

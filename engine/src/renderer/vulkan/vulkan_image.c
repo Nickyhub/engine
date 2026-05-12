@@ -1,9 +1,3 @@
-#ifndef STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
-#endif
-
-#include <stb_image.h>
-
 #include "vulkan_image.h"
 #include "vulkan_buffer.h"
 #include "vulkan_command_buffer.h"
@@ -52,10 +46,7 @@ b8 vulkan_image_create(
 
 void vulkan_image_destroy(vulkan_image *image)
 {
-	if (image->sampler != NULL)
-	{
-		vkDestroySampler(image->device->handle, image->sampler, image->allocator);
-	}
+
 	vkDestroyImageView(image->device->handle, image->view, image->allocator);
 	vkDestroyImage(image->device->handle, image->handle, image->allocator);
 	vkFreeMemory(image->device->handle, image->memory, image->allocator);
@@ -91,7 +82,7 @@ b8 create_image(
 	image_info.extent.width = width;
 	image_info.extent.height = height;
 	image_info.extent.depth = 1;
-	image_info.mipLevels = 4;
+	image_info.mipLevels = 1;
 	image_info.arrayLayers = 1;
 	image_info.format = format;
 	image_info.tiling = tiling;

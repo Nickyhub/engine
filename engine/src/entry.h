@@ -43,7 +43,6 @@ int main(void)
 		return 2;
 	}
 
-	memory_system_shutdown();
 
 	return 0;
 }

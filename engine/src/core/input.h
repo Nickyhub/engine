@@ -274,9 +274,9 @@ typedef struct input_system_state{
 	vec2_u last_mouse_pos;
 } input_system_state;
 
-void input_system_initialize();
+b8 input_system_initialize(u64 *memory_requirement, void *state);
 
-void input_system_shutdown();
+void input_system_shutdown(void *state);
 
 b8 input_process_key_input(key_code code, b8 pressed);
 
@@ -295,6 +295,8 @@ EAPI b8 input_is_mouse_button_pressed(mouse_code code);
 EAPI b8 input_was_mouse_button_pressed(mouse_code code);
 
 EAPI b8 input_is_key_pressed(key_code code);
+
+EAPI b8 input_is_key_up(key_code code);
 
 EAPI b8 input_was_key_pressed(key_code code);
 

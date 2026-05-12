@@ -11,6 +11,9 @@ typedef enum log_level {
 	LOG_LEVEL_FATAL,
 } log_level;
 
+b8 logger_system_initialize(log_level level, void *state, u64 *memory_requirement);
+void logger_system_shutdown(void *state);
+
 void log_message(log_level log_level, const char* message, ...);
 u8 get_log_level();
 void set_log_level(log_level log_level);

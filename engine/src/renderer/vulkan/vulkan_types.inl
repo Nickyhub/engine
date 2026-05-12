@@ -108,19 +108,20 @@ typedef struct vulkan_pipeline
 	VkPipeline handle;
 } vulkan_pipeline;
 
-#define OBJECT_SHADER_STAGE_COUNT 2
-#define VULKAN_OBJECT_SHADER_DESCRIPTOR_COUNT 2
+#define material_shader_STAGE_COUNT 2
+#define VULKAN_material_shader_DESCRIPTOR_COUNT 2
 
 typedef struct vulkan_descriptor_state{
 	// One per frame
 	u32 generations[3];
+	u32 ids[3];
 } vulkan_descriptor_state;
 
-typedef struct vulkan_object_shader_object_state {
+typedef struct vulkan_material_shader_object_state {
 	VkDescriptorSet descriptor_sets[3];
 
 	vulkan_descriptor_state descriptor_states[3];
-} vulkan_object_shader_object_state;
+} vulkan_material_shader_object_state;
 
 #define VULKAN_OBJECT_MAX_OBJECT_COUNT 1024
 
@@ -133,10 +134,10 @@ typedef struct vulkan_shader_stage
 
 // These are multiple shaders basically
 // Each stage is a shader like fragment and vertex for ex.
-typedef struct vulkan_object_shader
+typedef struct vulkan_material_shader
 {
 	// currently: vertex, fragment
-	vulkan_shader_stage stages[OBJECT_SHADER_STAGE_COUNT];
+	vulkan_shader_stage stages[material_shader_STAGE_COUNT];
 	vulkan_pipeline pipeline;
 
 	VkDescriptorSetLayout global_descriptor_set_layout;
@@ -154,12 +155,11 @@ typedef struct vulkan_object_shader
 
 	// TODO Rather do this with a free list 
 	u32 object_uniform_buffer_index;
-	vulkan_object_shader_object_state object_states[VULKAN_OBJECT_MAX_OBJECT_COUNT];
-
+	vulkan_material_shader_object_state object_states[VULKAN_OBJECT_MAX_OBJECT_COUNT];
 
 	const vulkan_device *device;
 	const VkAllocationCallbacks *allocator;
-} vulkan_object_shader;
+} vulkan_material_shader;
 
 typedef struct vulkan_physical_device_requirements
 {
@@ -190,7 +190,6 @@ typedef struct vulkan_image
 	u32 width;
 	u32 height;
 	u16 channels;
-	VkSampler sampler;
 	VkImageView view;
 } vulkan_image;
 
@@ -259,7 +258,7 @@ typedef struct vulkan_context
 	vulkan_buffer object_index_buffer;
 
 	vulkan_renderpass renderpass;
-	vulkan_object_shader object_shader;
+	vulkan_material_shader material_shader;
 
 	// Maintain offset into the buffers
 	u64 geometry_vertex_offset;

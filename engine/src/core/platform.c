@@ -1,6 +1,18 @@
 #include "platform.h"
 
+// windows specific headers to not convolute the autocomplete with too many symbols
+#include <libloaderapi.h>
+#include <Winuser.h>
+#include <errhandlingapi.h>
+#include <profileapi.h>
+#include <consoleapi.h>
+#include <consoleapi2.h>
+#include <ProcessEnv.h>
 #include <windowsx.h>
+#include <debugapi.h>
+#include <synchapi.h>
+#include <WinBase.h>
+
 #include <stdio.h>
 
 #include "memory/ememory.h"
@@ -8,11 +20,17 @@
 #include "input.h"
 #include "renderer/vulkan/vulkan_utils.h"
 
-static platform_state *state;
+static platform_state *state_ptr;
 
-b8 platform_create(const char *name, u16 width, u16 height, platform_state *out_platform)
+b8 platform_system_initialize(u64 *memory_requirement, void *state, const char *name, u16 width, u16 height)
 {
-	state = eallocate(sizeof(platform_state), MEMORY_TYPE_SYSTEM_STATE);
+	if (memory_requirement && !state)
+	{
+		*memory_requirement = sizeof(platform_state);
+		return true;
+	}
+
+	state_ptr = state;
 
 	const char *class_name = "WindowClassName";
 	// Get current hInstance
@@ -54,7 +72,7 @@ b8 platform_create(const char *name, u16 width, u16 height, platform_state *out_
 		return false;
 	}
 
-	state->window_handle = CreateWindowExA(
+	state_ptr->window_handle = CreateWindowExA(
 		windowExStyle,
 		class_name,
 		name,
@@ -65,37 +83,42 @@ b8 platform_create(const char *name, u16 width, u16 height, platform_state *out_
 		h_instance,
 		NULL);
 
-	if (!state->window_handle)
+	if (!state_ptr->window_handle)
 	{
 		error = GetLastError();
 		EN_ERROR("Window handle not created. Cannot continue application. Error Code: %lu", error);
 		return false;
 	}
 
-	state->window_hinstance = h_instance;
-	state->height = height;
-	state->width = width;
-	QueryPerformanceFrequency(&state->performance_frequency);
+	state_ptr->window_hinstance = h_instance;
+	state_ptr->height = height;
+	state_ptr->width = width;
+	QueryPerformanceFrequency(&state_ptr->performance_frequency);
 	ShowCursor(FALSE);
-	SetFocus(state->window_handle);
+	SetFocus(state_ptr->window_handle);
 
 	// Clip cursor to only the window
-	GetClientRect(state->window_handle, &rect);
-	MapWindowPoints(state->window_handle, 0, (POINT *)&rect, 2);
-	//ClipCursor(&rect);
+	GetClientRect(state_ptr->window_handle, &rect);
+	MapWindowPoints(state_ptr->window_handle, 0, (POINT *)&rect, 2);
+	// ClipCursor(&rect);
 
-	ShowWindow(state->window_handle, SW_NORMAL);
-	*out_platform = *state;
+	ShowWindow(state_ptr->window_handle, SW_NORMAL);
+	EN_INFO("Platform initialized.");
 	return true;
 }
 
-void platform_shutdown()
+void platform_system_shutdown(void *state)
 {
+	if (state_ptr != state)
+	{
+		return;
+	}
+
 	ShowCursor(TRUE);
 
 	EN_DEBUG("Shutting down platform.");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
-	efree(state, sizeof(platform_state), MEMORY_TYPE_SYSTEM_STATE);
+	state_ptr = 0;
 }
 
 const char *platform_get_vulkan_extensions() { return "VK_KHR_win32_surface"; }
@@ -104,7 +127,7 @@ f64 platform_get_absolute_time()
 {
 	LARGE_INTEGER counter;
 	QueryPerformanceCounter(&counter);
-	return (double)counter.QuadPart / state->performance_frequency.QuadPart;
+	return (double)counter.QuadPart / state_ptr->performance_frequency.QuadPart;
 }
 
 void platform_sleep(long ms)
@@ -159,7 +182,7 @@ void platform_log_message(log_level level, const char *message, ...)
 void platform_pump_messages()
 {
 	MSG msg;
-	while (PeekMessageA(&msg, state->window_handle, 0, 0, PM_REMOVE) > 0)
+	while (PeekMessageA(&msg, state_ptr->window_handle, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
