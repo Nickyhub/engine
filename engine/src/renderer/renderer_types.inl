@@ -22,18 +22,17 @@ typedef struct render_packet
 } render_packet;
 
 typedef struct geometry_render_data {
-	u32 object_id;
 	mat4 model;
-	texture* textures[16];
+	material* material;
 } geometry_render_data;
 
 // Per rendered object per frame
-typedef struct object_uniform_object {
+typedef struct material_uniform_object {
 	vec4 diffuse_color;
 	vec4 v_reserved0;
 	vec4 v_reserved1;
 	vec4 v_reserved2;
-} object_uniform_object;
+} material_uniform_object;
 
 typedef struct global_uniform_object
 {
@@ -57,14 +56,12 @@ typedef struct renderer_backend
 	void (*update_object)(geometry_render_data data);
 
 	void(*create_texture)(
-		const char* name,
-		i32 width,
-		i32 height,
-		i32 channel_count,
 		const u8* pixels,
-		b8 has_transparency,
-		struct texture* out_texture);
+		struct texture* texture);
 
 	void(*destroy_texture)(struct texture* texture);
+
+	b8 (*create_material)(material* material);
+	void (*destroy_material)(material* material);
 
 } renderer_backend;

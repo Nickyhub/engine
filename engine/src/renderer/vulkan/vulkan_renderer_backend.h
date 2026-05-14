@@ -25,15 +25,12 @@ void vulkan_renderer_backend_shutdown(struct renderer_backend* backend);
 
 void vulkan_renderer_backend_update_object(geometry_render_data data);
 
-void vulkan_renderer_backend_create_texture(
-    const char *name,
-    i32 width,
-    i32 height,
-    i32 channel_count,
-    const u8 *pixels,
-    b8 has_transparency,
-    texture *out_texture);
+void vulkan_renderer_backend_create_texture(const u8 *pixels,  texture *texture);
 
 void vulkan_renderer_backend_destroy_texture(
     texture* texture
 );
+
+b8 vulkan_renderer_backend_create_material(material* material);
+
+void vulkan_renderer_backend_destroy_material(material* material);

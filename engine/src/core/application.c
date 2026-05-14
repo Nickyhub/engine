@@ -9,6 +9,7 @@
 #include "game_types.h"
 
 #include "systems/texture_system.h"
+#include "systems/material_system.h"
 #include "memory/linear_allocator.h"
 
 typedef struct application_state
@@ -47,6 +48,9 @@ typedef struct application_state
 
 	void *texture_system_state;
 	u64 texture_system_memory_requirement;
+
+	void* material_system_state;
+	u64 material_system_memory_requirement;
 
 } application_state;
 
@@ -113,8 +117,23 @@ EAPI b8 application_initialize(game *game)
 	tex_config.max_texture_count = 128;
 	texture_system_initialize(&memory_requirement, 0, tex_config);
 	app_state->texture_system_state = linear_allocator_allocate(&app_state->systems_allocator, memory_requirement);
-	texture_system_initialize(&memory_requirement, app_state->texture_system_state, tex_config);
+	if(!texture_system_initialize(&memory_requirement, app_state->texture_system_state, tex_config)) {
+		EN_FATAL("Failed to initialize texture system. Application cannot continue.");
+		return false;
+	}
 	app_state->texture_system_memory_requirement = memory_requirement;
+
+	// Material system
+	memory_requirement = 0;
+	material_system_config mat_config;
+	mat_config.max_material_count = 128;
+	material_system_initialize(&memory_requirement, 0, mat_config);
+	app_state->material_system_state = linear_allocator_allocate(&app_state->systems_allocator, memory_requirement);
+		if(!material_system_initialize(&memory_requirement, app_state->material_system_state, mat_config)) {
+		EN_FATAL("Failed to initialize material system. Application cannot continue.");
+		return false;
+	}
+	app_state->material_system_memory_requirement = memory_requirement;
 
 	// Initialize game
 	if (!app_state->game_inst->initialize(app_state->game_inst))
@@ -143,6 +162,7 @@ EAPI b8 application_initialize(game *game)
 
 void application_shutdown()
 {
+	material_system_shutdown(app_state->material_system_state);
 	texture_system_shutdown(app_state->texture_system_state);
 	renderer_frontend_shutdown();
 	event_system_shutdown(app_state->event_system_state);

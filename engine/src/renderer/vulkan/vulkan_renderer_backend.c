@@ -192,14 +192,6 @@ b8 vulkan_renderer_backend_initialize(
 	upload_data_range(context, 0, context->device.graphics_queue, &context->object_vertex_buffer, 0, sizeof(vertex_3d) * vert_count, verts);
 	upload_data_range(context, 0, context->device.graphics_queue, &context->object_index_buffer, 0, sizeof(u32) * index_count, indices);
 	// END temporary test code
-
-	u32 object_id = 0;
-	if (!vulkan_material_shader_acquire_resources(context, &context->material_shader, &object_id))
-	{
-		EN_ERROR("Failed to acquire shader resources.");
-		return false;
-	}
-
 	return true;
 }
 
@@ -542,25 +534,14 @@ b8 create_buffers(vulkan_context *context)
 }
 
 void vulkan_renderer_backend_create_texture(
-	const char *name,
-	i32 width,
-	i32 height,
-	i32 channel_count,
 	const u8 *pixels,
-	b8 has_transparency,
-	texture *out_texture)
+	texture *texture)
 {
-	out_texture->width = width;
-	out_texture->height = height;
-	out_texture->channel_count = channel_count;
-	out_texture->has_transparency = has_transparency;
-	out_texture->generation = INVALID_ID;
-
 	// TODO Use an allocator for this.
-	out_texture->internal_data = (vulkan_texture_data *)eallocate(sizeof(vulkan_texture_data), MEMORY_TYPE_TEXTURE);
-	ezero_out(out_texture->internal_data, sizeof(vulkan_texture_data));
-	vulkan_texture_data *data = (vulkan_texture_data *)out_texture->internal_data;
-	VkDeviceSize size = width * height * channel_count;
+	texture->internal_data = (vulkan_texture_data *)eallocate(sizeof(vulkan_texture_data), MEMORY_TYPE_TEXTURE);
+	ezero_out(texture->internal_data, sizeof(vulkan_texture_data));
+	vulkan_texture_data *data = (vulkan_texture_data *)texture->internal_data;
+	VkDeviceSize size = texture->width * texture->height * texture->channel_count;
 
 	// Assume 8 bits per channel
 	VkFormat image_format = VK_FORMAT_R8G8B8A8_UNORM;
@@ -573,8 +554,8 @@ void vulkan_renderer_backend_create_texture(
 
 	vulkan_buffer_load_data(&staging, 0, size, 0, pixels, &context->device, context->allocator);
 	vulkan_image_create(
-		width,
-		height,
+		texture->width,
+		texture->height,
 		image_format,
 		VK_IMAGE_TILING_OPTIMAL,
 		VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
@@ -591,7 +572,7 @@ void vulkan_renderer_backend_create_texture(
 		VK_IMAGE_LAYOUT_UNDEFINED,
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
-	vulkan_image_copy_buffer_to_image(&data->image, &staging.handle, width, height);
+	vulkan_image_copy_buffer_to_image(&data->image, &staging.handle, texture->width, texture->height);
 
 	vulkan_image_transition_image_layout(
 		&data->image,
@@ -608,13 +589,13 @@ void vulkan_renderer_backend_create_texture(
 		return;
 	}
 
-	out_texture->generation++;
+	texture->generation++;
 }
 
 void vulkan_renderer_backend_destroy_texture(texture *texture)
 {
 	vkDeviceWaitIdle(context->device.handle);
-	vulkan_texture_data* data = (vulkan_texture_data*)texture->internal_data;
+	vulkan_texture_data *data = (vulkan_texture_data *)texture->internal_data;
 	if (data)
 	{
 		vulkan_image_destroy(&data->image);
@@ -625,5 +606,33 @@ void vulkan_renderer_backend_destroy_texture(texture *texture)
 		}
 		efree(data, sizeof(vulkan_texture_data), MEMORY_TYPE_TEXTURE);
 		data = 0;
+	}
+}
+
+b8 vulkan_renderer_backend_create_material(material *material)
+{
+	if (material)
+	{
+		if (!vulkan_material_shader_acquire_resources(context, &context->material_shader, material))
+		{
+			EN_ERROR("vulkan_renderer_create_material - Failed to acquire shader resources.");
+			return false;
+		}
+		EN_TRACE("Renderer: Material create.d");
+		return true;
+	}
+	EN_ERROR("vulkan_renderer_create_material - Passed null pointer. Creation failed.");
+	return false;
+}
+
+void vulkan_renderer_backend_destroy_material(material *material)
+{
+	if (material && material->internal_id != INVALID_ID)
+	{
+		vulkan_material_shader_release_resources(context, &context->material_shader, material);
+	}
+	else
+	{
+		EN_WARN("vulkan_renderer_backend_destroy_material - Either called with null pointer or internal id was INVALID_ID.");
 	}
 }

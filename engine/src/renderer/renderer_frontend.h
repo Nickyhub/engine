@@ -17,14 +17,13 @@ b8 renderer_frontend_draw_frame(render_packet *packet);
 EAPI void renderer_frontend_set_view(mat4 view);
 
 void renderer_frontend_create_texture(
-    const char *name,
-    i32 width,
-    i32 height,
-    i32 channel_count,
     const u8 *pixels,
-    b8 has_transparency,
     texture *out_texture);
 
 void renderer_frontend_destroy_texture(
     texture* texture
 );
+
+b8 renderer_frontend_create_material(material *material);
+
+void renderer_frontend_destroy_material(material* material);

@@ -20,6 +20,8 @@ b8 renderer_backend_create(
 
         out_renderer_backend->create_texture = vulkan_renderer_backend_create_texture;
         out_renderer_backend->destroy_texture = vulkan_renderer_backend_destroy_texture;
+        out_renderer_backend->create_material = vulkan_renderer_backend_create_material;
+        out_renderer_backend->destroy_material = vulkan_renderer_backend_destroy_material;
         // TODO: Fill out function pointers
         return true;
     }
@@ -39,4 +41,6 @@ void renderer_backend_destroy(renderer_backend *renderer_backend)
 
     renderer_backend->create_texture = 0;
     renderer_backend->destroy_texture = 0;
+    renderer_backend->create_material = 0;
+    renderer_backend->destroy_material = 0;
 }
