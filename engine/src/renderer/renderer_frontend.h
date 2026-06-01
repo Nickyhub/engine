@@ -21,9 +21,17 @@ void renderer_frontend_create_texture(
     texture *out_texture);
 
 void renderer_frontend_destroy_texture(
-    texture* texture
-);
+    texture *texture);
 
 b8 renderer_frontend_create_material(material *material);
 
-void renderer_frontend_destroy_material(material* material);
+void renderer_frontend_destroy_material(material *material);
+
+b8 renderer_frontend_create_geometry(
+    geometry *geometry,
+    u32 vertex_count,
+    const vertex_3d *vertices,
+    u32 index_count,
+    const u32 *indices);
+
+void renderer_frontend_destroy_geometry(geometry *geometry);

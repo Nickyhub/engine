@@ -21,5 +21,6 @@ add_library(engine SHARED ${SOURCES} ${HEADERS}
     src/memory/linear_allocator.h
     src/memory/linear_allocator.c
     src/systems/material_system.h
-    src/systems/material_system.c)
+    src/systems/material_system.c
+    src/systems/geometry_system.c)
 target_link_libraries(engine ${Vulkan_LIBRARIES})  # automatisch auf vulkan-1.lib

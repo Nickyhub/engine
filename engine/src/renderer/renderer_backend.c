@@ -16,12 +16,14 @@ b8 renderer_backend_create(
         out_renderer_backend->update_global_state = vulkan_renderer_update_global_state;
         out_renderer_backend->end_frame = vulkan_renderer_backend_end_frame;
         out_renderer_backend->resized = vulkan_renderer_backend_on_resize;
-        out_renderer_backend->update_object = vulkan_renderer_backend_update_object;
+        out_renderer_backend->draw_geometry = vulkan_renderer_backend_draw_geometry;
 
         out_renderer_backend->create_texture = vulkan_renderer_backend_create_texture;
         out_renderer_backend->destroy_texture = vulkan_renderer_backend_destroy_texture;
         out_renderer_backend->create_material = vulkan_renderer_backend_create_material;
         out_renderer_backend->destroy_material = vulkan_renderer_backend_destroy_material;
+        out_renderer_backend->create_geometry = vulkan_renderer_backend_create_geometry;
+        out_renderer_backend->destroy_geometry = vulkan_renderer_backend_destroy_geometry;
         // TODO: Fill out function pointers
         return true;
     }
@@ -37,10 +39,12 @@ void renderer_backend_destroy(renderer_backend *renderer_backend)
     renderer_backend->initialize = 0;
     renderer_backend->shutdown = 0;
     renderer_backend->resized = 0;
-    renderer_backend->update_object = 0;
+    renderer_backend->draw_geometry = 0;
 
     renderer_backend->create_texture = 0;
     renderer_backend->destroy_texture = 0;
     renderer_backend->create_material = 0;
     renderer_backend->destroy_material = 0;
+    renderer_backend->create_geometry = 0;
+    renderer_backend->destroy_geometry = 0;
 }

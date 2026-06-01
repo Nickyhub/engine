@@ -125,6 +125,14 @@ void string_mid(char *dest, const char *source, i32 start, i32 length)
     }
 }
 
+char *string_empty(char *str)
+{
+    if(str) {
+        str[0] = 0;
+    }
+    return str;
+}
+
 i32 string_index_of(char *str, char c)
 {
     if (!str)
@@ -349,5 +357,5 @@ b8 string_to_bool(char *str, b8 *b)
     {
         return false;
     }
-    return strings_equali(str ,"1") || strings_equali(str, "true");
+    return strings_equali(str, "1") || strings_equali(str, "true");
 }

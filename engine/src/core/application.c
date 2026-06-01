@@ -10,7 +10,12 @@
 
 #include "systems/texture_system.h"
 #include "systems/material_system.h"
+#include "systems/geometry_system.h"
+
 #include "memory/linear_allocator.h"
+#include "estring.h"
+
+#include "math/emath.h"
 
 typedef struct application_state
 {
@@ -49,8 +54,15 @@ typedef struct application_state
 	void *texture_system_state;
 	u64 texture_system_memory_requirement;
 
-	void* material_system_state;
+	void *material_system_state;
 	u64 material_system_memory_requirement;
+
+	void *geometry_system_state;
+	u64 geometry_system_memory_requirement;
+
+	// TODO: temp
+	geometry *test_geometry;
+	// TODO: end temp
 
 } application_state;
 
@@ -59,6 +71,39 @@ static application_state *app_state;
 b8 application_on_close(const void *sender, event_context context, event_type type);
 b8 application_on_resize(const void *sender, event_context context, event_type type);
 b8 application_on_key_pressed(const void *sender, event_context context, event_type type);
+
+// TODO: temp
+b8 event_on_debug_event(const void *sender, event_context context, event_type type)
+{
+	const char *names[3] = {
+		"cobblestone",
+		"paving",
+		"paving2"};
+	static i8 choice = 2;
+
+	// Save off the old name.
+	const char *old_name = names[choice];
+
+	choice++;
+	choice %= 3;
+
+	// Acquire the new texture.
+	if (app_state->test_geometry)
+	{
+		app_state->test_geometry->material->diffuse_map.texture = texture_system_acquire(names[choice], true);
+		if (!app_state->test_geometry->material->diffuse_map.texture)
+		{
+			EN_WARN("event_on_debug_event no texture! using default");
+			app_state->test_geometry->material->diffuse_map.texture = texture_system_get_default_texture();
+		}
+
+		// Release the old texture.
+		texture_system_release(old_name);
+	}
+
+	return true;
+}
+// TODO: end temp
 
 EAPI b8 application_initialize(game *game)
 {
@@ -69,7 +114,7 @@ EAPI b8 application_initialize(game *game)
 	clock_create(&app_state->app_clock);
 
 	// Initialize all subsystems
-	u64 systems_allocator_total_size = 64 * 1024;
+	u64 systems_allocator_total_size = 64 * 1024 * 1024;
 	linear_allocator_create(systems_allocator_total_size, &app_state->systems_allocator);
 
 	// Logger
@@ -117,7 +162,8 @@ EAPI b8 application_initialize(game *game)
 	tex_config.max_texture_count = 128;
 	texture_system_initialize(&memory_requirement, 0, tex_config);
 	app_state->texture_system_state = linear_allocator_allocate(&app_state->systems_allocator, memory_requirement);
-	if(!texture_system_initialize(&memory_requirement, app_state->texture_system_state, tex_config)) {
+	if (!texture_system_initialize(&memory_requirement, app_state->texture_system_state, tex_config))
+	{
 		EN_FATAL("Failed to initialize texture system. Application cannot continue.");
 		return false;
 	}
@@ -129,11 +175,37 @@ EAPI b8 application_initialize(game *game)
 	mat_config.max_material_count = 128;
 	material_system_initialize(&memory_requirement, 0, mat_config);
 	app_state->material_system_state = linear_allocator_allocate(&app_state->systems_allocator, memory_requirement);
-		if(!material_system_initialize(&memory_requirement, app_state->material_system_state, mat_config)) {
+	if (!material_system_initialize(&memory_requirement, app_state->material_system_state, mat_config))
+	{
 		EN_FATAL("Failed to initialize material system. Application cannot continue.");
 		return false;
 	}
 	app_state->material_system_memory_requirement = memory_requirement;
+
+	// Geometry system.
+	geometry_system_config geometry_sys_config = {0};
+	geometry_sys_config.max_geometry_count = 4096;
+	geometry_system_initialize(&app_state->geometry_system_memory_requirement, 0, geometry_sys_config);
+	app_state->geometry_system_state = linear_allocator_allocate(&app_state->systems_allocator, app_state->material_system_memory_requirement);
+	if (!geometry_system_initialize(&app_state->geometry_system_memory_requirement, app_state->geometry_system_state, geometry_sys_config))
+	{
+		EN_FATAL("Failed to initialize geometry system. Application cannot continue.");
+		return false;
+	}
+
+	// TODO: temp
+
+	// Load up a plane configuration, and load geometry from it.
+	geometry_config g_config = geometry_system_generate_plane_config(6.0f, 2.0f, 2, 2, 5.0f, 4.0f, "test geometry", "test_material");
+	app_state->test_geometry = geometry_system_acquire_from_config(g_config, true);
+
+	// Clean up the allocations for the geometry config.
+	efree(g_config.vertices, sizeof(vertex_3d) * g_config.vertex_count, MEMORY_TYPE_DARRAY);
+	efree(g_config.indices, sizeof(u32) * g_config.index_count, MEMORY_TYPE_DARRAY);
+
+	// Load up default geometry.
+	// app_state->test_geometry = geometry_system_get_default();
+	// TODO: end temp
 
 	// Initialize game
 	if (!app_state->game_inst->initialize(app_state->game_inst))
@@ -155,6 +227,7 @@ EAPI b8 application_initialize(game *game)
 	event_system_register_event((registered_event){EVENT_TYPE_WINDOW_CLOSE, application_on_close});
 	event_system_register_event((registered_event){EVENT_TYPE_WINDOW_RESIZE, application_on_resize});
 	event_system_register_event((registered_event){EVENT_TYPE_KEY_PRESSED, application_on_key_pressed});
+	event_system_register_event((registered_event){EVENT_TYPE_DEBUG0, event_on_debug_event});
 
 	app_state->is_suspended = false;
 	return true;
@@ -162,14 +235,15 @@ EAPI b8 application_initialize(game *game)
 
 void application_shutdown()
 {
+	geometry_system_shutdown(app_state->geometry_system_state);
 	material_system_shutdown(app_state->material_system_state);
 	texture_system_shutdown(app_state->texture_system_state);
 	renderer_frontend_shutdown();
 	event_system_shutdown(app_state->event_system_state);
 	input_system_shutdown(app_state->input_system_state);
-	platform_system_shutdown(app_state->platform_system_state);	
+	platform_system_shutdown(app_state->platform_system_state);
 	logger_system_shutdown(app_state->logger_system_state);
-	
+
 	linear_allocator_destroy(&app_state->systems_allocator);
 	efree(app_state, sizeof(application_state), MEMORY_TYPE_SYSTEM_STATE);
 	memory_system_shutdown();
@@ -184,33 +258,41 @@ b8 application_run()
 
 	print_memory_stats();
 	unsigned long frame_count = 0;
-	render_packet p = {0};
-	p.delta_time = 0;
+
 	app_state->last_time = platform_get_absolute_time();
 	while (app_state->is_running)
 	{
 		f64 current_time = platform_get_absolute_time();
 		f64 delta_time = current_time - app_state->last_time;
-		p.delta_time = delta_time;
 
 		platform_pump_messages();
 		if (!app_state->is_suspended)
 		{
-			
+
 			if (!app_state->game_inst->update(app_state->game_inst, (f32)delta_time))
 			{
 				EN_FATAL("Failed to update game, shutting off.");
 				app_state->is_running = false;
 				break;
 			}
-			
+
 			if (!app_state->game_inst->render(app_state->game_inst, (f32)delta_time))
 			{
 				EN_FATAL("Failed to render game, shutting off.");
 				app_state->is_running = false;
 				break;
 			}
-			
+
+			render_packet p = {0};
+			p.delta_time = delta_time;
+
+			geometry_render_data test_render;
+			test_render.geometry = app_state->test_geometry;
+			test_render.model = mat4_identity();
+
+			p.geometry_count = 1;
+			p.geometries = &test_render;
+
 			if (!renderer_frontend_draw_frame(&p))
 			{
 				// Swapchain is likely rebooting and we need to acquire a
@@ -219,7 +301,7 @@ b8 application_run()
 				// and EndFrame and acquire will be called again in BeginFrame
 				continue;
 			}
-			
+
 			if (clock_get_elapsed_sec(&app_state->app_clock) >= 1.0)
 			{
 				EN_DEBUG("Frames per second: %u", frame_count);

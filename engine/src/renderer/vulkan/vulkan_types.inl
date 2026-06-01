@@ -126,6 +126,20 @@ typedef struct vulkan_material_shader_instance_state {
 
 #define VULKAN_MAX_MATERIAL_COUNT 1024
 
+#define VULKAN_MAX_GEOMETRY_COUNT 4096
+
+typedef struct vulkan_geometry_data {
+	u32 id;
+	u32 generation;
+	u32 vertex_count;
+	u32 vertex_size;
+	u32 vertex_buffer_offset;
+	u32 index_count;
+	u32 index_size;
+	u32 index_buffer_offset;
+} vulkan_geometry_data;
+
+
 typedef struct vulkan_shader_stage
 {
 	VkShaderModuleCreateInfo create_info;
@@ -266,6 +280,9 @@ typedef struct vulkan_context
 	// Maintain offset into the buffers
 	u64 geometry_vertex_offset;
 	u64 geometry_index_offset;
+
+	vulkan_geometry_data geometries[VULKAN_MAX_GEOMETRY_COUNT];
+
 
 	// vulkan_command_buffer
 	vulkan_command_buffer *command_buffers; // darray

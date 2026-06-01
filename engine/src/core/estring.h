@@ -29,6 +29,8 @@ b8 string_to_vec3(char* str, vec3* out_vector);
 b8 string_to_vec2(char* str, vec2* out_vector);
 
 
+char* string_empty(char* str);
+
 b8 string_to_f32(char* str, f32* f);
 
 b8 string_to_f64(char* str, f64* f);
